@@ -363,6 +363,7 @@ header.site.scrolled{border-color:var(--line);box-shadow:0 4px 20px rgba(23,35,3
 
 /* ---------- faq ---------- */
 .faq-list{max-width:840px;margin:0;display:grid;gap:12px}
+@media (min-width:1024px){.faq-list{max-width:none;grid-template-columns:1fr 1fr;gap:14px 20px;align-items:start}}
 .faq-item{border:1px solid var(--line);border-radius:14px;background:var(--paper);transition:border-color .2s}
 .faq-item[open]{border-color:var(--emerald)}
 .faq-item summary{list-style:none;cursor:pointer;padding:19px 22px;font-weight:600;font-size:16.5px;display:flex;justify-content:space-between;align-items:center;gap:16px}
