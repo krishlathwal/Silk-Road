@@ -284,8 +284,13 @@ header.site.scrolled{border-color:var(--line);box-shadow:0 4px 20px rgba(23,35,3
 .step .num{width:56px;height:56px;border-radius:50%;background:var(--paper);border:3px solid var(--line);color:var(--ink-soft);display:flex;align-items:center;justify-content:center;z-index:2;transition:border-color .3s,color .3s,background .3s}
 .step.active .num{border-color:var(--emerald);background:var(--emerald);color:#fff}
 .step .num svg{width:24px;height:24px}
-.step .card{background:var(--cream);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;transition:border-color .3s,box-shadow .3s}
-.step.active .card{border-color:var(--emerald);box-shadow:var(--shadow)}
+.step .card{background:var(--cream);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;transition:border-color .3s,box-shadow .3s,opacity .5s ease,transform .5s ease;transform-origin:left center}
+@media (prefers-reduced-motion:no-preference){
+  .step .card{opacity:.55;transform:scale(.965) translateY(4px)}
+  .step.active .card{opacity:.82;transform:scale(.985)}
+  .step.current .card{opacity:1;transform:none}
+}
+.step.current .card{border-color:var(--emerald);box-shadow:var(--shadow)}
 .step h3{font-size:19px;font-weight:700;margin-bottom:5px}
 .step h3 .stg{font-size:12px;letter-spacing:.1em;color:var(--gold-deep);font-weight:700;display:block;margin-bottom:4px}
 .step p{color:var(--ink-soft);font-size:15px}
@@ -587,6 +592,23 @@ html{interpolate-size:allow-keywords}
   .story-vis img{animation:float 12s ease-in-out 1s infinite}
 }
 
+/* how-it-works: sticky crossfading image panel */
+.how-vis-inner{position:relative;aspect-ratio:4/3;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow)}
+.hv{position:absolute;inset:0;margin:0}
+.hv img{width:100%;height:100%;object-fit:cover;display:block}
+.hv{opacity:0}
+.hv.on{opacity:1}
+@media (prefers-reduced-motion:no-preference){.hv{transition:opacity .55s ease}}
+@media (min-width:1024px){
+  .how-grid{display:grid;grid-template-columns:minmax(0,720px) minmax(320px,1fr);gap:64px;align-items:start}
+  .how-vis-inner{position:sticky;top:104px}
+}
+@media (max-width:1023px){
+  .how-vis{margin-top:34px}
+  .how-vis-inner{position:static;aspect-ratio:auto;border:none;box-shadow:none;overflow:visible;border-radius:0}
+  .hv{position:static;opacity:1!important;display:block;margin:0 0 14px;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+}
+
 /* lead form: focus micro-moment (the one addition from the G audit) */
 .form-card{transition:box-shadow .25s}
 .form-card:focus-within{box-shadow:0 24px 60px rgba(0,0,0,.28),0 0 0 3px var(--emerald)}
@@ -795,6 +817,7 @@ body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;bac
       <h2>Five steps. You approve every one.</h2>
       <p>Nothing moves to the next step until you've signed off on the last one.</p>
     </div>
+    <div class="how-grid">
     <div class="steps" id="stepsWrap">
       <div class="rail" aria-hidden="true"><div class="fill" id="railFill"></div></div>
 
@@ -818,6 +841,23 @@ body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;bac
         <div class="num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8l6-5 6 5v6H2V8z" transform="translate(4,4)"/><path d="M6 21h12"/></svg></div>
         <div class="card"><h3><span class="stg">STEP 5</span>Freight, customs & delivered</h3><p>We handle shipping, clearance and delivery to your door in Australia. One partner, one clear landed price.</p></div>
       </div>
+    </div>
+    <aside class="how-vis" aria-hidden="true">
+      <div class="how-vis-inner">
+        <picture class="hv hv-1 on">
+          <source srcset="assets/how-brief.webp" type="image/webp" />
+          <img src="assets/how-brief.jpg" alt="" width="900" height="675" loading="lazy" />
+        </picture>
+        <picture class="hv hv-2">
+          <source srcset="assets/how-qc.webp" type="image/webp" />
+          <img src="assets/how-qc.jpg" alt="" width="900" height="675" loading="lazy" />
+        </picture>
+        <picture class="hv hv-3">
+          <source srcset="assets/how-freight.webp" type="image/webp" />
+          <img src="assets/how-freight.jpg" alt="" width="900" height="675" loading="lazy" />
+        </picture>
+      </div>
+    </aside>
     </div>
   </div>
 </section>
@@ -1135,16 +1175,25 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 const stepsWrap = document.getElementById('stepsWrap');
 const railFill = document.getElementById('railFill');
 const steps = [...document.querySelectorAll('[data-step]')];
+const howImgs = [...document.querySelectorAll('.how-vis .hv')];
+const stepImgMap = [0, 0, 1, 1, 2]; /* steps 1-2 -> brief, 3-4 -> QC, 5 -> freight */
 function updateRail(){
   if(!stepsWrap) return;
   const r = stepsWrap.getBoundingClientRect();
   const vh = innerHeight;
   const prog = Math.min(1, Math.max(0, (vh*0.62 - r.top) / r.height));
   railFill.style.height = (prog*100) + '%';
-  steps.forEach(s=>{
-    const sr = s.getBoundingClientRect();
-    s.classList.toggle('active', sr.top < vh*0.62);
+  let cur = -1;
+  steps.forEach((s, i)=>{
+    const on = s.getBoundingClientRect().top < vh*0.62;
+    s.classList.toggle('active', on);
+    if(on) cur = i;
   });
+  steps.forEach((s, i)=> s.classList.toggle('current', i === cur));
+  if(howImgs.length){
+    const want = cur < 0 ? 0 : stepImgMap[Math.min(cur, stepImgMap.length - 1)];
+    howImgs.forEach((img, i)=> img.classList.toggle('on', i === want));
+  }
 }
 addEventListener('scroll', updateRail, {passive:true});
 addEventListener('resize', updateRail);
