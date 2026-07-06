@@ -521,15 +521,6 @@ section[data-num="02"]::before,section[data-num="04"]::before,section[data-num="
 .help-card:hover{box-shadow:none}
 .lead::before{content:none}
 
-/* marquee ticker */
-.ticker{overflow:hidden;background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:13px 0}
-.ticker-row{display:flex;align-items:center;width:max-content;animation:tick 38s linear infinite}
-.ticker:hover .ticker-row{animation-play-state:paused}
-.ti{font-size:13px;font-weight:600;color:var(--ink-soft);letter-spacing:.04em;white-space:nowrap}
-.ti+.ti::before{content:"◆";color:var(--gold);font-size:8px;margin:0 26px;vertical-align:2px}
-@keyframes tick{to{transform:translateX(-50%)}}
-@media (prefers-reduced-motion:reduce){.ticker-row{animation:none}}
-
 /* dashed route divider between sections */
 .route-div{max-width:var(--maxw);margin:0 auto;padding:26px 24px 0}
 .route-div svg{width:100%;height:26px;display:block;opacity:.75}
@@ -671,13 +662,6 @@ body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;bac
     </div>
   </div>
 </section>
-
-<!-- ================= TICKER ================= -->
-<div class="ticker" aria-hidden="true">
-  <div class="ticker-row">
-    <span class="ti">Bags</span><span class="ti">Laptop bags</span><span class="ti">Plush charms</span><span class="ti">Caps</span><span class="ti">Hats</span><span class="ti">Gloves</span><span class="ti">BSCI</span><span class="ti">ISO 14001</span><span class="ti">GRS</span><span class="ti">ICS</span><span class="ti">SGS</span><span class="ti">FSC</span><span class="ti">Higg Index</span><span class="ti">Bags</span><span class="ti">Laptop bags</span><span class="ti">Plush charms</span><span class="ti">Caps</span><span class="ti">Hats</span><span class="ti">Gloves</span><span class="ti">BSCI</span><span class="ti">ISO 14001</span><span class="ti">GRS</span><span class="ti">ICS</span><span class="ti">SGS</span><span class="ti">FSC</span><span class="ti">Higg Index</span>
-  </div>
-</div>
 
 <!-- ================= TRUST BAR ================= -->
 <section class="trust" style="padding:52px 0">
@@ -1376,19 +1360,6 @@ const ZH = {
   '.route-band text||0': '工厂 · 中国',
   '.route-band text||1': '已质检 · 已发运 · 已清关',
   '.route-band text||2': '您的门口 · 澳大利亚',
-  /* ---- marquee ticker (category names; certs stay Latin) ---- */
-  '.ticker .ti||0': '包袋',
-  '.ticker .ti||1': '电脑包',
-  '.ticker .ti||2': '毛绒包挂',
-  '.ticker .ti||3': '棒球帽',
-  '.ticker .ti||4': '帽类',
-  '.ticker .ti||5': '手套',
-  '.ticker .ti||13': '包袋',
-  '.ticker .ti||14': '电脑包',
-  '.ticker .ti||15': '毛绒包挂',
-  '.ticker .ti||16': '棒球帽',
-  '.ticker .ti||17': '帽类',
-  '.ticker .ti||18': '手套',
   /* ---- trust bar ---- */
   '.trust .eyebrow': '工厂网络的资质',
   '.brandline': '与我们合作的工厂，本就为<b>全球一些最大的零售品牌</b>生产产品。在为您报价之前，这就是既定的品质门槛。',
