@@ -1118,6 +1118,29 @@ body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;bac
   </div>
 </div>
 
+<!-- ================= CATEGORY QUICK-QUOTE POPUP ================= -->
+<div class="pop-overlay" id="catOverlay" role="dialog" aria-modal="true" aria-label="Quick quote request">
+  <div class="pop">
+    <button class="x" id="catClose" type="button" aria-label="Close">×</button>
+    <div class="eyebrow">Quick quote</div>
+    <h3>Tell us what you're after.</h3>
+    <p>We'll come back within one business day with a real quote.</p>
+    <form id="catForm" novalidate>
+      <div class="hp" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
+      <div class="field"><label for="catName">Name</label><input class="input" id="catName" type="text" autocomplete="name" required /></div>
+      <div class="field"><label for="catEmail">Email</label><input class="input" id="catEmail" type="email" autocomplete="email" required /></div>
+      <div class="field"><label for="catProduct">Product</label>
+        <select id="catProduct">
+          <option value="Bags">Bags</option><option value="Laptop bags">Laptop bags</option><option value="Headwear">Headwear</option><option value="Plush">Plush</option>
+          <option value="Gloves">Gloves</option><option value="Eyewear">Eyewear</option><option value="Footwear">Footwear</option><option value="Other">Other</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" type="submit" id="catSubmit" style="width:100%;justify-content:center">Get my quote</button>
+      <p class="pop-msg" id="catMsg"></p>
+    </form>
+  </div>
+</div>
+
 <!-- ================= TIMED / EXIT POPUP ================= -->
 <div class="pop-overlay" id="popOverlay" role="dialog" aria-modal="true" aria-label="Join the early-access list">
   <div class="pop">
@@ -1349,7 +1372,8 @@ document.getElementById('chatClose').addEventListener('click', ()=> setChat(fals
 /* Escape closes the popup first, then the chat */
 document.addEventListener('keydown', (e)=>{
   if(e.key !== 'Escape') return;
-  if(popOverlay.classList.contains('open')) popOverlay.classList.remove('open');
+  if(catOverlay.classList.contains('open')) closeCat();
+  else if(popOverlay.classList.contains('open')) popOverlay.classList.remove('open');
   else if(chatPanel.classList.contains('open')) setChat(false);
 });
 /* chat answers live in MSG (see i18n block below) */
@@ -1389,6 +1413,58 @@ popForm.addEventListener('submit', async (e)=>{
   setTimeout(()=> popOverlay.classList.remove('open'), 1600);
 });
 
+/* ---- category quick-quote popup ---- */
+const catOverlay = document.getElementById('catOverlay');
+const catMsg = document.getElementById('catMsg');
+let catLastFocus = null;
+function openCat(product){
+  catLastFocus = document.activeElement;
+  const sel = document.getElementById('catProduct');
+  sel.value = (product && [...sel.options].some(o => o.value === product)) ? product : 'Other';
+  catMsg.className = 'pop-msg'; catMsg.textContent = '';
+  catOverlay.classList.add('open');
+  document.getElementById('catName').focus();
+}
+function closeCat(){
+  catOverlay.classList.remove('open');
+  if(catLastFocus && catLastFocus.focus) catLastFocus.focus();
+}
+document.querySelectorAll('#source .cat').forEach(a => {
+  a.addEventListener('click', e => { e.preventDefault(); openCat(a.getAttribute('data-product')); });
+});
+document.getElementById('catClose').addEventListener('click', closeCat);
+catOverlay.addEventListener('click', e => { if(e.target === catOverlay) closeCat(); });
+/* focus trap */
+catOverlay.addEventListener('keydown', e => {
+  if(e.key !== 'Tab') return;
+  const f = [...catOverlay.querySelectorAll('button,input,select')].filter(el => !el.closest('.hp') && !el.disabled);
+  const first = f[0], last = f[f.length - 1];
+  if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+  else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+});
+document.getElementById('catForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const f = e.target;
+  if(f.website.value){ catMsg.textContent = MSG[LANG].catThanks; catMsg.className = 'pop-msg show'; return; }
+  const name = document.getElementById('catName').value.trim();
+  const email = document.getElementById('catEmail').value.trim();
+  const product = document.getElementById('catProduct').value;
+  if(!name || !email){ catMsg.textContent = MSG[LANG].vRequired2; catMsg.className = 'pop-msg show err'; return; }
+  if(!EMAIL_RE.test(email)){ catMsg.textContent = MSG[LANG].vEmail; catMsg.className = 'pop-msg show err'; return; }
+  const btn = document.getElementById('catSubmit');
+  btn.disabled = true; btn.textContent = MSG[LANG].vSending;
+  try{
+    const res = await insertLead({ name, company: '', email, product, quantity: '', timeline: '', message: 'Category popup: ' + product });
+    catMsg.textContent = res.demo ? MSG[LANG].vPreview : MSG[LANG].catThanks;
+    catMsg.className = 'pop-msg show';
+    if(!res.demo){ f.reset(); setTimeout(closeCat, 1600); }
+  }catch(err){
+    catMsg.textContent = MSG[LANG].vError;
+    catMsg.className = 'pop-msg show err';
+  }
+  btn.disabled = false; btn.textContent = MSG[LANG].vSubmit;
+});
+
 /* ============================================================
    i18n — EN / 简体中文
    EN strings are captured from the DOM at load; ZH lives below.
@@ -1406,6 +1482,8 @@ const MSG = {
     vPreview: 'Preview mode: add your Supabase keys and this will save + email you. (No data was sent.)',
     vError: 'Something went wrong — please try again, or message us on WhatsApp.',
     vEmail: 'Please enter a valid email address.',
+    vRequired2: 'Please add your name and email.',
+    catThanks: "Thanks — we'll reply within one business day.",
     popThanks: "Thanks — you're on the list. We'll be in touch.",
     chatHuman: '  Want a human? Tap “Chat on WhatsApp”.',
     answers: {
@@ -1425,6 +1503,8 @@ const MSG = {
     vPreview: '预览模式：填入 Supabase 密钥后即可保存并发送邮件通知。（未发送任何数据。）',
     vError: '出了点问题——请重试，或通过 WhatsApp 联系我们。',
     vEmail: '请输入有效的邮箱地址。',
+    vRequired2: '请填写姓名和邮箱。',
+    catThanks: '谢谢——我们将在一个工作日内回复您。',
     popThanks: '谢谢——您已加入名单，我们会尽快联系您。',
     chatHuman: '　想找人工？点击“WhatsApp 沟通”。',
     answers: {
@@ -1659,10 +1739,26 @@ const ZH = {
   '#chatOpts .chip||3': '物流运输？',
   '#chatOpts .chip||4': 'WhatsApp 沟通',
   '#chatOpts .chip||5': '获取报价',
-  /* ---- popup ---- */
-  '.pop .eyebrow': '离开之前',
-  '.pop h3': '先找对工厂，再谈生意。',
-  '.pop > p': '加入早期体验名单，我们会依托认证工厂网络，帮您把采购这件事做对。',
+  /* ---- category quick-quote popup ---- */
+  '#catOverlay .eyebrow': '快速报价',
+  '#catOverlay h3': '告诉我们您想要什么。',
+  '#catOverlay .pop > p': '一个工作日内，我们会带着真实报价回来。',
+  'label[for="catName"]': '姓名',
+  'label[for="catEmail"]': '邮箱',
+  'label[for="catProduct"]': '产品',
+  '#catProduct option||0': '包袋',
+  '#catProduct option||1': '电脑包',
+  '#catProduct option||2': '帽类',
+  '#catProduct option||3': '毛绒',
+  '#catProduct option||4': '手套',
+  '#catProduct option||5': '眼镜',
+  '#catProduct option||6': '鞋履',
+  '#catProduct option||7': '其他',
+  '#catSubmit': '获取我的报价',
+  /* ---- exit popup ---- */
+  '#popOverlay .eyebrow': '离开之前',
+  '#popOverlay h3': '先找对工厂，再谈生意。',
+  '#popOverlay .pop > p': '加入早期体验名单，我们会依托认证工厂网络，帮您把采购这件事做对。',
   '#popProduct option||0': '意向产品…',
   '#popProduct option||1': '包袋',
   '#popProduct option||2': '电脑包',
@@ -1683,6 +1779,8 @@ const ZH_ATTR = [
   ['#chatToggle', 'aria-label', '打开聊天'],
   ['.fab.wa', 'aria-label', '通过 WhatsApp 聊天'],
   ['#popClose', 'aria-label', '关闭'],
+  ['#catClose', 'aria-label', '关闭'],
+  ['#catOverlay', 'aria-label', '快速报价申请'],
   ['#chatClose', 'aria-label', '关闭聊天'],
   ['#popOverlay', 'aria-label', '加入早期体验名单'],
   ['#chatPanel', 'aria-label', '与 Souklane 聊天'],
