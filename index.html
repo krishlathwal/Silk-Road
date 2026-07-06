@@ -105,8 +105,8 @@
   --cream:#FAF6EE; --paper:#FFFFFF; --ink:#17231E; --ink-soft:#4A5751;
   --emerald:#0E7A57; --emerald-deep:#0A5E43; --emerald-tint:#E7F0EA;
   --gold:#C9A96A; --gold-deep:#9A7B3F; --gold-tint:#F6EEDD;
-  --line:#E7E1D3; --radius:18px; --maxw:1140px;
-  --shadow:0 10px 34px rgba(23,35,30,.09);
+  --line:#E7E1D3; --radius:12px; --r-feature:30px; --maxw:1260px;
+  --shadow:0 22px 54px -28px rgba(23,35,30,.22);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:84px}
@@ -439,6 +439,100 @@ footer.site .lang-toggle{border-color:rgba(255,255,255,.28);color:rgba(255,255,2
 footer.site .lang-toggle:hover,footer.site .lang-toggle:focus-visible{color:#fff;border-color:#fff}
 html[lang="zh-CN"] body{font-family:'Inter','PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif}
 html[lang="zh-CN"] h1,html[lang="zh-CN"] h2,html[lang="zh-CN"] h3,html[lang="zh-CN"] .display,html[lang="zh-CN"] .form-card .fhead,html[lang="zh-CN"] .form-success .big,html[lang="zh-CN"] .chat-head b,html[lang="zh-CN"] .story-vis .badge .n{font-family:'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif;letter-spacing:0}
+/* ============================================================
+   v3 design layer — editorial de-templating (overrides above)
+   ============================================================ */
+/* type scale */
+.hero h1{font-size:clamp(38px,6.4vw,76px);line-height:1.02;letter-spacing:-.03em}
+@media (max-width:480px){.hero h1 .hl{white-space:normal}}
+.head h2{font-size:clamp(30px,4.6vw,52px)}
+.gx{font-style:italic;color:var(--gold-deep);font-family:'Bricolage Grotesque','Inter',sans-serif}
+
+/* header alignment variants */
+.head.rule{position:relative;padding-top:20px}
+.head.rule::before{content:"";position:absolute;top:0;left:2px;width:64px;height:2px;background:var(--gold)}
+@media (min-width:880px){
+  .head.split{display:grid;grid-template-columns:1.15fr .85fr;column-gap:56px;align-items:end;max-width:none}
+  .head.split .eyebrow{grid-column:1/-1}
+  .head.split h2{grid-column:1}
+  .head.split p{grid-column:2;margin:0 0 10px;justify-self:start}
+}
+
+/* section rhythm + numbered markers */
+main section{position:relative}
+section[data-num]::before{content:attr(data-num);position:absolute;top:30px;right:max(18px,3.5vw);font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(72px,10vw,132px);line-height:1;color:var(--ink);opacity:.05;pointer-events:none;z-index:0}
+section[data-num="02"]::before,section[data-num="04"]::before,section[data-num="06"]::before,section[data-num="08"]::before{right:auto;left:max(18px,3.5vw)}
+@media (max-width:767px){section[data-num]::before{display:none}}
+#problem{padding:112px 0 96px}
+#about{padding:120px 0 0}
+.how{padding:96px 0 128px;padding-top:230px}
+#why{padding:88px 0}
+#source{padding:118px 0 96px}
+#help{padding-top:1px}
+#proof{padding:72px 0}
+#faq{padding:118px 0}
+@media (max-width:640px){
+  #problem{padding:72px 0 64px}
+  #about{padding:72px 0 0}
+  .how{padding-top:150px;padding-bottom:80px}
+  #why{padding:64px 0}
+  #source{padding:76px 0 64px}
+  #proof{padding:56px 0}
+  #faq{padding:76px 0}
+}
+
+/* overlap moments */
+.vs{margin-bottom:-140px;position:relative;z-index:2;box-shadow:var(--shadow);border-radius:14px}
+@media (max-width:640px){.vs{margin-bottom:-90px}}
+.help-banner{width:100vw;max-width:100vw;margin:-70px calc(50% - 50vw) 56px;height:min(400px,40vw);border-radius:0;border-left:none;border-right:none;position:relative;z-index:2}
+@media (max-width:920px){.help-banner{height:220px;margin-top:-44px;margin-bottom:34px}}
+
+/* shape system */
+.collage-photo img{border-radius:210px 210px 24px 24px}
+@media (max-width:920px){.collage-photo img{border-radius:130px 130px 18px 18px}}
+.why-card.feature{border-radius:var(--r-feature)}
+.form-card{border-radius:var(--r-feature)}
+.cat.more{border-radius:var(--r-feature)}
+.vs,.step .card,.faq-item{border-radius:10px}
+.collage-photo .chipf.f2{rotate:-1.2deg}
+.collage-photo .chipf.f1{rotate:.8deg}
+.story-vis .badge{rotate:1.4deg}
+
+/* featured category tile + stagger */
+@media (min-width:960px){
+  .cats{grid-template-columns:repeat(3,1fr)}
+  .cats .cat:first-child{grid-row:span 2;display:flex;flex-direction:column}
+  .cats .cat:first-child .ph{aspect-ratio:auto;flex:1;min-height:300px}
+  .cats .cat:first-child .tx{padding:18px 20px 20px}
+  .cats .cat:nth-child(3n+2){margin-top:26px}
+}
+
+/* wider bleed on dark bands */
+.trust .wrap{max-width:1360px}
+
+/* calm the hovers (kept: buttons, fabs) */
+.risk:hover{transform:none;box-shadow:none}
+.why-card:hover{transform:none;box-shadow:none;border-color:var(--gold)}
+.cat:hover{transform:none}
+.help-card:hover{box-shadow:none}
+.lead::before{content:none}
+
+/* marquee ticker */
+.ticker{overflow:hidden;background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:13px 0}
+.ticker-row{display:flex;align-items:center;width:max-content;animation:tick 38s linear infinite}
+.ticker:hover .ticker-row{animation-play-state:paused}
+.ti{font-size:13px;font-weight:600;color:var(--ink-soft);letter-spacing:.04em;white-space:nowrap}
+.ti+.ti::before{content:"◆";color:var(--gold);font-size:8px;margin:0 26px;vertical-align:2px}
+@keyframes tick{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.ticker-row{animation:none}}
+
+/* dashed route divider between sections */
+.route-div{max-width:var(--maxw);margin:0 auto;padding:26px 24px 0}
+.route-div svg{width:100%;height:26px;display:block;opacity:.75}
+
+/* paper grain */
+body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.055 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:160px 160px}
+
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
 </style>
 </head>
@@ -527,6 +621,13 @@ html[lang="zh-CN"] h1,html[lang="zh-CN"] h2,html[lang="zh-CN"] h3,html[lang="zh-
   </div>
 </section>
 
+<!-- ================= TICKER ================= -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-row">
+    <span class="ti">Bags</span><span class="ti">Laptop bags</span><span class="ti">Plush charms</span><span class="ti">Caps</span><span class="ti">Hats</span><span class="ti">Gloves</span><span class="ti">BSCI</span><span class="ti">ISO 14001</span><span class="ti">GRS</span><span class="ti">ICS</span><span class="ti">SGS</span><span class="ti">FSC</span><span class="ti">Higg Index</span><span class="ti">Bags</span><span class="ti">Laptop bags</span><span class="ti">Plush charms</span><span class="ti">Caps</span><span class="ti">Hats</span><span class="ti">Gloves</span><span class="ti">BSCI</span><span class="ti">ISO 14001</span><span class="ti">GRS</span><span class="ti">ICS</span><span class="ti">SGS</span><span class="ti">FSC</span><span class="ti">Higg Index</span>
+  </div>
+</div>
+
 <!-- ================= TRUST BAR ================= -->
 <section class="trust" style="padding:52px 0">
   <div class="wrap">
@@ -557,9 +658,9 @@ html[lang="zh-CN"] h1,html[lang="zh-CN"] h2,html[lang="zh-CN"] h3,html[lang="zh-
 </section>
 
 <!-- ================= PROBLEM ================= -->
-<section class="problem" id="problem">
+<section class="problem" id="problem" data-num="01">
   <div class="wrap">
-    <div class="head center reveal">
+    <div class="head rule reveal">
       <div class="eyebrow">Why sourcing goes wrong</div>
       <h2>China is a goldmine — and a minefield.</h2>
       <p>The prices and choice are unbeatable. The risk is knowing who to trust — and what will actually arrive.</p>
@@ -574,8 +675,10 @@ html[lang="zh-CN"] h1,html[lang="zh-CN"] h2,html[lang="zh-CN"] h3,html[lang="zh-
   </div>
 </section>
 
+<div class="route-div" aria-hidden="true"><svg viewBox="0 0 1200 44" preserveAspectRatio="none"><path d="M0 26 C 300 8, 900 42, 1200 22" fill="none" stroke="var(--gold)" stroke-width="2" stroke-dasharray="6 10" stroke-linecap="round"/></svg></div>
+
 <!-- ================= WHO WE ARE (story) ================= -->
-<section id="about">
+<section id="about" data-num="02">
   <div class="wrap">
     <div class="story-grid">
       <div class="reveal">
@@ -607,7 +710,7 @@ html[lang="zh-CN"] h1,html[lang="zh-CN"] h2,html[lang="zh-CN"] h3,html[lang="zh-
 </section>
 
 <!-- ================= HOW IT WORKS ================= -->
-<section class="how" id="how">
+<section class="how" id="how" data-num="03">
   <div class="wrap">
     <div class="head center reveal">
       <div class="eyebrow">How it works</div>
@@ -642,9 +745,9 @@ html[lang="zh-CN"] h1,html[lang="zh-CN"] h2,html[lang="zh-CN"] h3,html[lang="zh-
 </section>
 
 <!-- ================= WHY US ================= -->
-<section id="why">
+<section id="why" data-num="04">
   <div class="wrap">
-    <div class="head reveal">
+    <div class="head rule reveal">
       <div class="eyebrow">Why us</div>
       <h2>The difference is the network behind us.</h2>
     </div>
@@ -663,10 +766,12 @@ html[lang="zh-CN"] h1,html[lang="zh-CN"] h2,html[lang="zh-CN"] h3,html[lang="zh-
   </div>
 </section>
 
+<div class="route-div" aria-hidden="true"><svg viewBox="0 0 1200 44" preserveAspectRatio="none"><path d="M0 22 C 300 40, 900 6, 1200 26" fill="none" stroke="var(--gold)" stroke-width="2" stroke-dasharray="6 10" stroke-linecap="round"/></svg></div>
+
 <!-- ================= WHAT WE SOURCE ================= -->
-<section class="src" id="source">
+<section class="src" id="source" data-num="05">
   <div class="wrap">
-    <div class="head reveal">
+    <div class="head split reveal">
       <div class="eyebrow">What we source</div>
       <h2>Starting with soft goods. Growing fast.</h2>
       <p>The lines we source — every one customisable, with samples before you commit.</p>
@@ -693,17 +798,17 @@ html[lang="zh-CN"] h1,html[lang="zh-CN"] h2,html[lang="zh-CN"] h3,html[lang="zh-
 </section>
 
 <!-- ================= WHO WE HELP ================= -->
-<section id="help">
+<section id="help" data-num="06">
   <div class="wrap">
-    <div class="head reveal">
-      <div class="eyebrow">Who we help</div>
-      <h2>Built for businesses that need it made right.</h2>
-    </div>
     <div class="help-banner reveal">
       <picture>
         <source srcset="assets/help-banner.webp" type="image/webp" />
         <img src="assets/help-banner.jpg" alt="A styled retail line-up of quilted bags, caps, a backpack and plush charms sourced by Souklane" width="1600" height="893" loading="lazy" />
       </picture>
+    </div>
+    <div class="head rule reveal">
+      <div class="eyebrow">Who we help</div>
+      <h2>Built for businesses that need it made right.</h2>
     </div>
     <div class="help-grid">
       <div class="help-card reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-5h16l1 5M3 9v11h18V9M3 9h18M9 20v-6h6v6"/></svg></div><div><h3>Retailers &amp; store owners</h3><p>Stock and private-label lines for your shelves or online shop.</p></div></div>
@@ -718,9 +823,9 @@ html[lang="zh-CN"] h1,html[lang="zh-CN"] h2,html[lang="zh-CN"] h3,html[lang="zh-
 </section>
 
 <!-- ================= PROOF ================= -->
-<section class="proof" id="proof">
+<section class="proof" id="proof" data-num="07">
   <div class="wrap">
-    <div class="head reveal">
+    <div class="head split reveal">
       <div class="eyebrow">Proof</div>
       <h2>Quality that's already trusted at scale.</h2>
       <p>Our factory partners manufacture for some of the world's best-known retail brands. Client stories from our pilot are coming soon.</p>
@@ -734,8 +839,10 @@ html[lang="zh-CN"] h1,html[lang="zh-CN"] h2,html[lang="zh-CN"] h3,html[lang="zh-
   </div>
 </section>
 
+<div class="route-div" aria-hidden="true"><svg viewBox="0 0 1200 44" preserveAspectRatio="none"><path d="M0 24 C 300 10, 900 38, 1200 20" fill="none" stroke="var(--gold)" stroke-width="2" stroke-dasharray="6 10" stroke-linecap="round"/></svg></div>
+
 <!-- ================= FAQ ================= -->
-<section id="faq">
+<section id="faq" data-num="08">
   <div class="wrap">
     <div class="head center reveal">
       <div class="eyebrow">FAQ</div>
@@ -876,7 +983,7 @@ html[lang="zh-CN"] h1,html[lang="zh-CN"] h2,html[lang="zh-CN"] h3,html[lang="zh-
 </div>
 
 <div class="chat-panel" id="chatPanel" role="dialog" aria-label="Chat with Souklane">
-  <div class="chat-head"><b>Hi 👋 How can we help?</b><p>Quick answers, or chat to a human.</p><button class="x" id="chatClose" type="button" aria-label="Close chat">×</button></div>
+  <div class="chat-head"><b>Hi — how can we help?</b><p>Quick answers, or chat to a human.</p><button class="x" id="chatClose" type="button" aria-label="Close chat">×</button></div>
   <div class="chat-body" id="chatBody">
     <div class="bubble bot">Ask me a common question, or jump straight to WhatsApp or a quote.</div>
   </div>
@@ -1134,6 +1241,19 @@ const ZH = {
   '.route-band text||0': '工厂 · 中国',
   '.route-band text||1': '已质检 · 已发运 · 已清关',
   '.route-band text||2': '您的门口 · 澳大利亚',
+  /* ---- marquee ticker (category names; certs stay Latin) ---- */
+  '.ticker .ti||0': '包袋',
+  '.ticker .ti||1': '电脑包',
+  '.ticker .ti||2': '毛绒包挂',
+  '.ticker .ti||3': '棒球帽',
+  '.ticker .ti||4': '帽类',
+  '.ticker .ti||5': '手套',
+  '.ticker .ti||13': '包袋',
+  '.ticker .ti||14': '电脑包',
+  '.ticker .ti||15': '毛绒包挂',
+  '.ticker .ti||16': '棒球帽',
+  '.ticker .ti||17': '帽类',
+  '.ticker .ti||18': '手套',
   /* ---- trust bar ---- */
   '.trust .eyebrow': '已认证 · 严质检 · 可验证',
   '.brandline': '我们的合作工厂长期为<b>全球领先零售品牌</b>生产——在给您报价之前，品质门槛早已立好。',
@@ -1326,7 +1446,7 @@ const ZH = {
   'footer.site .contact-item span': '立足澳大利亚 · 对接中国',
   '.foot-note': '各项认证（BSCI、ISO、GRS、ICS、SGS、FSC、Higg Index）由我们的合作工厂持有。品牌相关表述仅说明工厂的代工履历，并非对 Souklane 的背书。作为进口商，您须自行负责澳大利亚产品安全与标签合规要求（如玩具类 AS/NZS ISO 8124）；并可能产生 GST 与关税。以上内容仅为一般信息，不构成法律、税务或海关建议——具体事宜请咨询专业人士。© <span id="year"></span> Souklane 版权所有。',
   /* ---- chat ---- */
-  '.chat-head b': '你好 👋 需要什么帮助？',
+  '.chat-head b': '你好，需要什么帮助？',
   '.chat-head p': '快速解答，或转人工沟通。',
   '#chatBody .bubble||0': '点击下方问题快速了解，或直接跳转 WhatsApp、获取报价。',
   '#chatOpts .chip||0': '起订量？',
