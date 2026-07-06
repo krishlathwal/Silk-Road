@@ -341,8 +341,10 @@ header.site.scrolled{border-color:var(--line);box-shadow:0 4px 20px rgba(23,35,3
 .help-banner{margin:4px 0 40px;height:280px;border-radius:20px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow)}
 .help-banner img{width:100%;height:100%;object-fit:cover;object-position:center 52%;display:block}
 @media (max-width:920px){.help-banner{height:190px;margin-bottom:30px}}
-.help-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
-.help-card{display:grid;grid-template-columns:50px 1fr;gap:16px;align-items:start;border:1px solid var(--line);border-radius:var(--radius);padding:22px;background:var(--paper);transition:border-color .2s,box-shadow .2s}
+.help-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media (max-width:900px){.help-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.help-grid{grid-template-columns:1fr}}
+.help-card{display:grid;grid-template-columns:50px 1fr;gap:16px;align-items:start;border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px;background:var(--paper);transition:border-color .2s,box-shadow .2s}
 .help-card:hover{border-color:var(--gold);box-shadow:var(--shadow)}
 .help-card .ic{width:50px;height:50px;border-radius:14px;background:var(--gold-tint);color:var(--gold-deep);display:flex;align-items:center;justify-content:center}
 .help-card .ic svg{width:24px;height:24px}
