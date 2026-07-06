@@ -99,6 +99,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="preload" as="image" href="assets/hero-flatlay.webp" type="image/webp" fetchpriority="high" />
 
 <style>
 :root{
@@ -529,6 +530,26 @@ section[data-num="02"]::before,section[data-num="04"]::before,section[data-num="
 /* dashed route divider between sections */
 .route-div{max-width:var(--maxw);margin:0 auto;padding:26px 24px 0}
 .route-div svg{width:100%;height:26px;display:block;opacity:.75}
+
+/* hero entrance + integrated route (motion-safe: no animation = instantly visible) */
+@media (prefers-reduced-motion:no-preference){
+  .hero h1 .w{display:inline-block;opacity:0;transform:translateY(.55em) rotate(2deg);animation:wIn .55s cubic-bezier(.2,.7,.3,1) forwards;animation-delay:calc(80ms + var(--wi)*60ms)}
+  @keyframes wIn{to{opacity:1;transform:none}}
+  .hero .seal{animation:rIn .5s .02s both}
+  .hero .sub{animation:rIn .6s .5s both}
+  .hero-cta{animation:rIn .6s .68s both}
+  .hero-note{animation:rIn .6s .84s both}
+  @keyframes rIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  .collage-photo picture{animation:cIn .9s .3s cubic-bezier(.2,.75,.25,1) both}
+  @keyframes cIn{from{opacity:0;transform:translateY(28px) rotate(2.4deg) scale(.97)}to{opacity:1;transform:none}}
+  .collage-photo .chipf.f1{animation:chipPop .45s 1.05s cubic-bezier(.34,1.56,.64,1) both,float 9s ease-in-out 1.9s infinite}
+  .collage-photo .chipf.f2{animation:chipPop .45s 1.2s cubic-bezier(.34,1.56,.64,1) both,float 7s ease-in-out 2s infinite}
+  @keyframes chipPop{from{opacity:0;transform:scale(.55)}to{opacity:1;transform:scale(1)}}
+}
+@media (min-width:921px){
+  .hero-grid{position:relative;z-index:1}
+  .route-band{margin-top:-64px;position:relative;z-index:0;pointer-events:none}
+}
 
 /* paper grain */
 body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.055 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:160px 160px}
@@ -1072,6 +1093,41 @@ addEventListener('scroll', updateRail, {passive:true});
 addEventListener('resize', updateRail);
 updateRail();
 
+/* ---- hero: word-stagger split (re-runs per language; CJK splits per character) ---- */
+function splitHeroWords(){
+  const h = document.querySelector('.hero h1');
+  if(!h || h.querySelector('.w')) return;
+  let i = 0;
+  const wrap = node => {
+    const text = node.textContent;
+    const tokens = /[一-鿿]/.test(text) ? Array.from(text) : text.split(/(\s+)/);
+    const frag = document.createDocumentFragment();
+    tokens.forEach(t => {
+      if(!t) return;
+      if(/^\s+$/.test(t)){ frag.appendChild(document.createTextNode(t)); return; }
+      const s = document.createElement('span');
+      s.className = 'w'; s.style.setProperty('--wi', i++); s.textContent = t;
+      frag.appendChild(s);
+    });
+    node.parentNode.replaceChild(frag, node);
+  };
+  [...h.childNodes].forEach(n => {
+    if(n.nodeType === 3) wrap(n);
+    else if(n.nodeType === 1) [...n.childNodes].forEach(c => { if(c.nodeType === 3) wrap(c); });
+  });
+}
+
+/* ---- hero: gentle collage parallax (desktop + motion-safe only) ---- */
+const collageEl = document.querySelector('.collage');
+const paraWide = matchMedia('(min-width:921px)');
+const motionOK = matchMedia('(prefers-reduced-motion: no-preference)');
+function heroParallax(){
+  if(!collageEl) return;
+  if(!paraWide.matches || !motionOK.matches){ collageEl.style.transform = ''; return; }
+  collageEl.style.transform = 'translateY(' + (Math.min(140, scrollY) * 0.12) + 'px)';
+}
+addEventListener('scroll', heroParallax, {passive:true});
+
 /* ---- category cards / sample button: prefill the form's product select ---- */
 const productSelect = document.getElementById('product');
 document.querySelectorAll('[data-product]').forEach(el=>{
@@ -1508,6 +1564,7 @@ function applyLang(l){
   const md = document.querySelector('meta[name="description"]');
   if (md) md.setAttribute('content', MSG[LANG].metaDesc);
   const y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
+  splitHeroWords();
   /* rebuild WhatsApp links (some are recreated by the innerHTML swap) */
   waHref = 'https://wa.me/' + encodeURIComponent(WHATSAPP_NUMBER) + '?text=' + encodeURIComponent(MSG[LANG].waGreeting);
   document.querySelectorAll('[data-walink]').forEach(a => { a.href = waHref; a.target = '_blank'; a.rel = 'noopener'; });
