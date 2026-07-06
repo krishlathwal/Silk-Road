@@ -1052,6 +1052,7 @@ body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;bac
             <div class="field"><label for="company">Company <span class="opt">(optional)</span></label><input class="input" id="company" name="company" type="text" autocomplete="organization" /></div>
           </div>
           <div class="field"><label for="email">Email</label><input class="input" id="email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="phone">Phone <span class="opt">(optional)</span></label><input class="input" id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" /></div>
           <div class="field"><label for="product">Product interest</label>
             <select id="product" name="product" required>
               <option value="" disabled selected>Choose one…</option>
@@ -1175,6 +1176,7 @@ body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;bac
       <div class="hp" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
       <div class="field"><label for="catName">Name</label><input class="input" id="catName" type="text" autocomplete="name" required /></div>
       <div class="field"><label for="catEmail">Email</label><input class="input" id="catEmail" type="email" autocomplete="email" required /></div>
+      <div class="field"><label for="catPhone">Phone <span class="opt">(optional)</span></label><input class="input" id="catPhone" type="tel" autocomplete="tel" inputmode="tel" /></div>
       <div class="field"><label for="catProduct">Product</label>
         <select id="catProduct">
           <option value="Bags">Bags</option><option value="Laptop bags">Laptop bags</option><option value="Headwear">Headwear</option><option value="Plush">Plush</option>
@@ -1405,10 +1407,12 @@ leadForm.addEventListener('submit', async (e)=>{
   const btn = document.getElementById('leadSubmit');
   btn.disabled = true; btn.textContent = MSG[LANG].vSending;
   try{
+    const phone = leadForm.phone.value.trim();
     const res = await insertLead({
       name, company: leadForm.company.value.trim(), email,
       product, quantity: leadForm.quantity.value.trim(),
-      timeline: leadForm.timeline.value, message: leadForm.message.value.trim()
+      timeline: leadForm.timeline.value,
+      message: [leadForm.message.value.trim(), phone ? 'Phone: ' + phone : ''].filter(Boolean).join(' | ')
     });
     if(res.demo){
       formMsg.textContent = MSG[LANG].vPreview;
@@ -1518,7 +1522,8 @@ document.getElementById('catForm').addEventListener('submit', async e => {
   const btn = document.getElementById('catSubmit');
   btn.disabled = true; btn.textContent = MSG[LANG].vSending;
   try{
-    const res = await insertLead({ name, company: '', email, product, quantity: '', timeline: '', message: 'Category popup: ' + product });
+    const catPhone = document.getElementById('catPhone').value.trim();
+    const res = await insertLead({ name, company: '', email, product, quantity: '', timeline: '', message: 'Category popup: ' + product + (catPhone ? ' | Phone: ' + catPhone : '') });
     catMsg.textContent = res.demo ? MSG[LANG].vPreview : MSG[LANG].catThanks;
     catMsg.className = 'pop-msg show';
     if(!res.demo){ f.reset(); setTimeout(closeCat, 1600); }
@@ -1757,6 +1762,7 @@ const ZH = {
   'label[for="name"]': '姓名',
   'label[for="company"]': '公司 <span class="opt">（选填）</span>',
   'label[for="email"]': '邮箱',
+  'label[for="phone"]': '电话 <span class="opt">（选填）</span>',
   'label[for="product"]': '意向产品',
   'label[for="quantity"]': '大致数量 <span class="opt">（选填）</span>',
   'label[for="timeline"]': '时间安排 <span class="opt">（选填）</span>',
@@ -1812,6 +1818,7 @@ const ZH = {
   '#catOverlay .pop > p': '一个工作日内，我们会带着真实报价回来。',
   'label[for="catName"]': '姓名',
   'label[for="catEmail"]': '邮箱',
+  'label[for="catPhone"]': '电话 <span class="opt">（选填）</span>',
   'label[for="catProduct"]': '产品',
   '#catProduct option||0': '包袋',
   '#catProduct option||1': '电脑包',
