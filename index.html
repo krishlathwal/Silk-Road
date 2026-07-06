@@ -240,14 +240,16 @@ header.site.scrolled{border-color:var(--line);box-shadow:0 4px 20px rgba(23,35,3
 /* ---------- problem ---------- */
 .problem{background:var(--paper)}
 .problem-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
-.risk{position:relative;border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px 24px;background:var(--cream);transition:transform .2s,box-shadow .2s,border-color .2s;overflow:hidden}
-.risk:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--gold)}
-.risk .big{position:absolute;right:12px;top:2px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:64px;color:var(--gold);opacity:.16;line-height:1}
-.risk .ic{width:44px;height:44px;border-radius:12px;background:var(--gold-tint);color:var(--gold-deep);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
-.risk h3{font-size:17px;font-weight:700;margin-bottom:6px}
-.risk p{font-size:14.5px;color:var(--ink-soft)}
-.problem .kicker{margin-top:34px;text-align:left;font-size:16px}
-.problem .kicker b{color:var(--emerald)}
+.risk{position:relative;border:1px solid #23342C;border-radius:var(--radius);padding:28px 26px 26px;background:var(--ink);color:#D6E4DC;transition:border-color .25s;overflow:hidden}
+.risk:hover{border-color:var(--gold)}
+.risk .big{position:absolute;right:14px;top:6px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:92px;color:var(--gold);opacity:.14;line-height:1}
+.risk .ic{position:relative;width:46px;height:46px;border-radius:12px;background:rgba(201,169,106,.13);color:var(--gold);display:flex;align-items:center;justify-content:center;margin-bottom:16px;overflow:hidden}
+.risk .ic::after{content:"";position:absolute;left:-20%;top:50%;width:140%;height:2px;background:var(--gold);opacity:.55;transform:rotate(-42deg)}
+.risk h3{font-size:21px;font-weight:800;margin-bottom:8px;color:#fff;letter-spacing:-.01em}
+.risk p{font-size:14.5px;color:#AFC2B8}
+.problem .kicker{margin-top:36px;background:var(--emerald);color:#fff;padding:20px 26px;border-radius:12px;display:flex;align-items:center;gap:14px;font-size:17px;text-align:left}
+.problem .kicker b{color:#fff}
+.problem .kicker::after{content:"→";margin-left:auto;color:#EDCF8C;font-size:24px;font-weight:700;flex:none}
 @media (prefers-reduced-motion:reduce){.risk:hover{transform:none}}
 
 /* ---------- story (who we are) ---------- */
