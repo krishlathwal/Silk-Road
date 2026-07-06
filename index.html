@@ -297,15 +297,17 @@ header.site.scrolled{border-color:var(--line);box-shadow:0 4px 20px rgba(23,35,3
 .step .badge{display:inline-block;margin-top:10px;font-size:12.5px;font-weight:600;color:var(--emerald-deep);background:var(--emerald-tint);padding:5px 12px;border-radius:999px}
 
 /* ---------- why us ---------- */
-.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 @media (max-width:920px){.why-grid{grid-template-columns:1fr 1fr}}
 @media (max-width:600px){.why-grid{grid-template-columns:1fr}}
-.why-card{border:1px solid var(--line);border-radius:var(--radius);padding:28px 26px;background:var(--paper);transition:transform .2s,box-shadow .2s}
-.why-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
-.why-card .ic{width:48px;height:48px;border-radius:13px;background:var(--emerald-tint);color:var(--emerald);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.why-card{position:relative;border:1px solid var(--line);border-radius:var(--radius);padding:30px 28px;background:var(--paper);transition:border-color .25s}
+.why-card::after{content:"";position:absolute;left:28px;right:auto;top:0;width:34px;height:2px;background:var(--line);transition:width .3s ease,background .3s ease}
+.why-card:hover::after{width:64px;background:var(--gold)}
+.why-card .ic{width:48px;height:48px;border-radius:13px;background:var(--emerald-tint);color:var(--emerald);display:flex;align-items:center;justify-content:center;margin-bottom:18px;transition:transform .25s ease}
+@media (prefers-reduced-motion:no-preference){.why-card:hover .ic{transform:translateY(-3px)}}
 .why-card .ic svg{width:24px;height:24px}
-.why-card h3{font-size:17.5px;font-weight:700;margin-bottom:7px}
-.why-card p{font-size:14.5px;color:var(--ink-soft)}
+.why-card h3{font-size:18px;font-weight:800;margin-bottom:8px;letter-spacing:-.01em}
+.why-card p{font-size:14.5px;color:var(--ink-soft);line-height:1.6}
 .why-card.feature{grid-column:span 2;background:var(--emerald);color:#fff;border-color:var(--emerald)}
 @media (max-width:600px){.why-card.feature{grid-column:span 1}}
 .why-card.feature .ic{background:rgba(255,255,255,.14);color:#9FE9CE}
