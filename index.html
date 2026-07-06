@@ -21,6 +21,7 @@
 <meta property="og:url" content="https://souklane.com/" />
 <meta property="og:site_name" content="Souklane" />
 <meta property="og:locale" content="en_AU" />
+<meta property="og:locale:alternate" content="zh_CN" />
 <meta property="og:title" content="Souklane — Source from China, without the stress." />
 <meta property="og:description" content="Product sourcing for Australian businesses — samples first, quality checked in China, one clear landed price, delivered." />
 <meta property="og:image" content="https://souklane.com/assets/og-image.png" />
@@ -83,6 +84,11 @@
     },
     {
       "@type": "Question",
+      "name": "What documents come with my shipment?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The full set: commercial invoice, packing list, and — where your goods qualify — a ChAFTA Certificate of Origin so the duty-free rate actually gets applied at the border. You get copies of everything." }
+    },
+    {
+      "@type": "Question",
       "name": "Is it safe? How do payments work?",
       "acceptedAnswer": { "@type": "Answer", "text": "You deal with one accountable Australian contact, not an anonymous overseas seller. We set out clear, staged payment terms in writing before anything begins." }
     }
@@ -96,24 +102,27 @@
 <!-- >>> GOOGLE TAG / GA4: paste your gtag.js <script> block here <<< -->
 <!-- ============================================================= -->
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<!-- self-hosted fonts: no third-party requests (also mainland-China friendly) -->
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/inter-var.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/bricolage-var.woff2" crossorigin />
+<link rel="preload" as="image" href="assets/hero-flatlay.webp" type="image/webp" fetchpriority="high" />
 
 <style>
+@font-face{font-family:'Bricolage Grotesque';font-style:normal;font-weight:400 800;font-display:swap;src:url('assets/fonts/bricolage-var.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Inter';font-style:normal;font-weight:400 700;font-display:swap;src:url('assets/fonts/inter-var.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 :root{
   --cream:#FAF6EE; --paper:#FFFFFF; --ink:#17231E; --ink-soft:#4A5751;
   --emerald:#0E7A57; --emerald-deep:#0A5E43; --emerald-tint:#E7F0EA;
   --gold:#C9A96A; --gold-deep:#9A7B3F; --gold-tint:#F6EEDD;
-  --line:#E7E1D3; --radius:18px; --maxw:1140px;
-  --shadow:0 10px 34px rgba(23,35,30,.09);
+  --line:#E7E1D3; --radius:12px; --r-feature:30px; --maxw:1260px;
+  --shadow:0 22px 54px -28px rgba(23,35,30,.22);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:84px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 body{font-family:'Inter',system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 h1,h2,h3,.display{font-family:'Bricolage Grotesque','Inter',sans-serif;letter-spacing:-.02em;line-height:1.08}
-img{max-width:100%;display:block}
+img{max-width:100%;height:auto;display:block}
 .wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 24px}
 .eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--emerald)}
 .muted{color:var(--ink-soft)}
@@ -153,6 +162,12 @@ header.site.scrolled{border-color:var(--line);box-shadow:0 4px 20px rgba(23,35,3
 .nav-links a{font-size:14px;font-weight:500;text-decoration:none;color:var(--ink-soft)}
 .nav-links a:hover{color:var(--emerald)}
 @media (max-width:900px){.nav-links a:not(.nav-cta){display:none}}
+@media (max-width:480px){
+  .brand .word{font-size:19px}
+  .nav-links{gap:10px}
+  .nav-links .nav-cta{padding:9px 14px!important;font-size:13.5px;white-space:nowrap}
+  .lang-toggle{padding:6px 10px;white-space:nowrap}
+}
 
 /* ---------- hero ---------- */
 .hero{padding:64px 0 0;position:relative}
@@ -203,41 +218,54 @@ header.site.scrolled{border-color:var(--line);box-shadow:0 4px 20px rgba(23,35,3
 }
 
 /* ---------- trust bar ---------- */
-.trust{background:var(--ink);color:#EAF1EC;padding:52px 0}
-.certs{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-.cert{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:8px 15px;font-size:13px;font-weight:500}
-.cert .tick{color:#3DD9AC}
-.trust-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:22px;border-top:1px solid rgba(255,255,255,.12);padding-top:28px;margin-top:26px}
-.stat .n{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:32px;color:#fff}
+.trust{background:var(--ink);color:#EAF1EC;padding:72px 0}
+.trust-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:start}
+@media (max-width:860px){.trust-grid{grid-template-columns:1fr;gap:34px}}
+.trust .tstat{font-family:'Bricolage Grotesque','Inter',sans-serif;font-weight:800;font-size:clamp(24px,3vw,34px);line-height:1.15;letter-spacing:-.02em;color:#fff;margin-top:14px;max-width:22ch}
+.brandline{font-size:14.5px;color:#B8C7BF;margin-top:16px;max-width:52ch}
+.brandline b{color:#fff}
+.trust .tbrands{margin-top:22px;font-size:13px;color:#9DB3A9;border-left:2px solid var(--gold);padding-left:12px}
+.trust .tlabel{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#9FE9CE;font-weight:700;margin-bottom:14px}
+.certlist{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:0 28px;margin:0;padding:0}
+.certlist li{font-size:14.5px;font-weight:600;color:#EAF1EC;padding:10px 0 10px 26px;position:relative;border-bottom:1px solid rgba(255,255,255,.09)}
+.certlist li::before{content:"✓";position:absolute;left:0;top:9px;color:#3DD9AC;font-weight:800}
+.trust-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid rgba(255,255,255,.14);margin-top:48px}
+.trust-stats .stat{padding:26px 24px 2px;border-left:1px solid rgba(201,169,106,.3)}
+.trust-stats .stat:first-child{border-left:none;padding-left:0}
+.stat .n{font-family:'Bricolage Grotesque','Inter',sans-serif;font-weight:800;font-size:42px;color:#fff}
 .stat .n em{font-style:normal;color:#3DD9AC}
 .stat .l{font-size:13px;color:#9DB3A9;margin-top:2px}
-.brandline{font-size:14.5px;color:#B8C7BF;margin-top:18px}
-.brandline b{color:#fff}
-.logo-slots{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px}
-.logo-slot{height:38px;min-width:98px;border:1px dashed rgba(255,255,255,.22);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#7F958C;padding:0 12px}
+@media (max-width:700px){
+  .trust-stats{grid-template-columns:1fr 1fr}
+  .trust-stats .stat{padding:20px 18px 2px}
+  .trust-stats .stat:nth-child(odd){border-left:none;padding-left:0}
+  .stat .n{font-size:34px}
+}
 
 /* ---------- problem ---------- */
 .problem{background:var(--paper)}
 .problem-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
-.risk{position:relative;border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px 24px;background:var(--cream);transition:transform .2s,box-shadow .2s,border-color .2s;overflow:hidden}
-.risk:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--gold)}
-.risk .big{position:absolute;right:12px;top:2px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:64px;color:var(--gold);opacity:.16;line-height:1}
-.risk .ic{width:44px;height:44px;border-radius:12px;background:var(--gold-tint);color:var(--gold-deep);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
-.risk h3{font-size:17px;font-weight:700;margin-bottom:6px}
-.risk p{font-size:14.5px;color:var(--ink-soft)}
-.problem .kicker{margin-top:34px;text-align:center;font-size:16px}
-.problem .kicker b{color:var(--emerald)}
+.risk{position:relative;border:1px solid #23342C;border-radius:var(--radius);padding:28px 26px 26px;background:var(--ink);color:#D6E4DC;transition:border-color .25s;overflow:hidden}
+.risk:hover{border-color:var(--gold)}
+.risk .big{position:absolute;right:14px;top:6px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:92px;color:var(--gold);opacity:.14;line-height:1}
+.risk .ic{position:relative;width:46px;height:46px;border-radius:12px;background:rgba(201,169,106,.13);color:var(--gold);display:flex;align-items:center;justify-content:center;margin-bottom:16px;overflow:hidden}
+.risk .ic::after{content:"";position:absolute;left:-20%;top:50%;width:140%;height:2px;background:var(--gold);opacity:.55;transform:rotate(-42deg)}
+.risk h3{font-size:21px;font-weight:800;margin-bottom:8px;color:#fff;letter-spacing:-.01em}
+.risk p{font-size:14.5px;color:#AFC2B8}
+.problem .kicker{margin-top:36px;background:var(--emerald);color:#fff;padding:20px 26px;border-radius:12px;display:flex;align-items:center;gap:14px;font-size:17px;text-align:left}
+.problem .kicker b{color:#fff}
+.problem .kicker::after{content:"→";margin-left:auto;color:#EDCF8C;font-size:24px;font-weight:700;flex:none}
 @media (prefers-reduced-motion:reduce){.risk:hover{transform:none}}
 
 /* ---------- story (who we are) ---------- */
 .story-grid{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center}
 @media (max-width:920px){.story-grid{grid-template-columns:1fr;gap:36px}}
 .story-vis{position:relative}
-.story-vis img{border-radius:20px;border:1px solid var(--line);box-shadow:var(--shadow)}
-.story-vis .badge{position:absolute;left:-14px;bottom:22px;background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:13px 17px;display:flex;gap:11px;align-items:center}
-.story-vis .badge .n{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:22px;color:var(--emerald)}
+.story-vis img{border-radius:18px;border:1px solid var(--line);box-shadow:var(--shadow)}
+.story-vis .badge{position:absolute;left:-14px;bottom:26px;background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:14px;box-shadow:var(--shadow);padding:15px 19px;display:flex;gap:12px;align-items:center}
+.story-vis .badge .n{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:24px;color:var(--emerald)}
 .story-vis .badge .t{font-size:12px;color:var(--ink-soft);max-width:16ch;line-height:1.35}
-.story-points{margin-top:26px;display:grid;gap:16px}
+.story-points{margin-top:32px;display:grid;gap:22px}
 .spoint{display:grid;grid-template-columns:46px 1fr;gap:15px;align-items:start}
 .spoint .ic{width:46px;height:46px;border-radius:13px;background:var(--emerald-tint);color:var(--emerald);display:flex;align-items:center;justify-content:center}
 .spoint h3{font-size:16.5px;font-weight:700}
@@ -253,7 +281,7 @@ header.site.scrolled{border-color:var(--line);box-shadow:0 4px 20px rgba(23,35,3
 
 /* ---------- how it works ---------- */
 .how{background:var(--paper)}
-.steps{position:relative;max-width:800px;margin:0 auto}
+.steps{position:relative;max-width:800px;margin:0}
 .steps .rail{position:absolute;left:27px;top:8px;bottom:8px;width:3px;background:var(--line);border-radius:3px}
 .steps .rail .fill{width:100%;height:0%;background:linear-gradient(var(--emerald),var(--gold));border-radius:3px;transition:height .25s linear}
 .step{display:grid;grid-template-columns:58px 1fr;gap:22px;padding-bottom:42px;position:relative}
@@ -261,23 +289,30 @@ header.site.scrolled{border-color:var(--line);box-shadow:0 4px 20px rgba(23,35,3
 .step .num{width:56px;height:56px;border-radius:50%;background:var(--paper);border:3px solid var(--line);color:var(--ink-soft);display:flex;align-items:center;justify-content:center;z-index:2;transition:border-color .3s,color .3s,background .3s}
 .step.active .num{border-color:var(--emerald);background:var(--emerald);color:#fff}
 .step .num svg{width:24px;height:24px}
-.step .card{background:var(--cream);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;transition:border-color .3s,box-shadow .3s}
-.step.active .card{border-color:var(--emerald);box-shadow:var(--shadow)}
+.step .card{background:var(--cream);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;transition:border-color .3s,box-shadow .3s,opacity .5s ease,transform .5s ease;transform-origin:left center}
+@media (prefers-reduced-motion:no-preference){
+  .step .card{opacity:.55;transform:scale(.965) translateY(4px)}
+  .step.active .card{opacity:.82;transform:scale(.985)}
+  .step.current .card{opacity:1;transform:none}
+}
+.step.current .card{border-color:var(--emerald);box-shadow:var(--shadow)}
 .step h3{font-size:19px;font-weight:700;margin-bottom:5px}
 .step h3 .stg{font-size:12px;letter-spacing:.1em;color:var(--gold-deep);font-weight:700;display:block;margin-bottom:4px}
 .step p{color:var(--ink-soft);font-size:15px}
 .step .badge{display:inline-block;margin-top:10px;font-size:12.5px;font-weight:600;color:var(--emerald-deep);background:var(--emerald-tint);padding:5px 12px;border-radius:999px}
 
 /* ---------- why us ---------- */
-.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 @media (max-width:920px){.why-grid{grid-template-columns:1fr 1fr}}
 @media (max-width:600px){.why-grid{grid-template-columns:1fr}}
-.why-card{border:1px solid var(--line);border-radius:var(--radius);padding:28px 26px;background:var(--paper);transition:transform .2s,box-shadow .2s}
-.why-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
-.why-card .ic{width:48px;height:48px;border-radius:13px;background:var(--emerald-tint);color:var(--emerald);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.why-card{position:relative;border:1px solid var(--line);border-radius:var(--radius);padding:30px 28px;background:var(--paper);transition:border-color .25s}
+.why-card::after{content:"";position:absolute;left:28px;right:auto;top:0;width:34px;height:2px;background:var(--line);transition:width .3s ease,background .3s ease}
+.why-card:hover::after{width:64px;background:var(--gold)}
+.why-card .ic{width:48px;height:48px;border-radius:13px;background:var(--emerald-tint);color:var(--emerald);display:flex;align-items:center;justify-content:center;margin-bottom:18px;transition:transform .25s ease}
+@media (prefers-reduced-motion:no-preference){.why-card:hover .ic{transform:translateY(-3px)}}
 .why-card .ic svg{width:24px;height:24px}
-.why-card h3{font-size:17.5px;font-weight:700;margin-bottom:7px}
-.why-card p{font-size:14.5px;color:var(--ink-soft)}
+.why-card h3{font-size:18px;font-weight:800;margin-bottom:8px;letter-spacing:-.01em}
+.why-card p{font-size:14.5px;color:var(--ink-soft);line-height:1.6}
 .why-card.feature{grid-column:span 2;background:var(--emerald);color:#fff;border-color:var(--emerald)}
 @media (max-width:600px){.why-card.feature{grid-column:span 1}}
 .why-card.feature .ic{background:rgba(255,255,255,.14);color:#9FE9CE}
@@ -311,14 +346,16 @@ header.site.scrolled{border-color:var(--line);box-shadow:0 4px 20px rgba(23,35,3
 .help-banner{margin:4px 0 40px;height:280px;border-radius:20px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow)}
 .help-banner img{width:100%;height:100%;object-fit:cover;object-position:center 52%;display:block}
 @media (max-width:920px){.help-banner{height:190px;margin-bottom:30px}}
-.help-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
-.help-card{display:grid;grid-template-columns:50px 1fr;gap:16px;align-items:start;border:1px solid var(--line);border-radius:var(--radius);padding:22px;background:var(--paper);transition:border-color .2s,box-shadow .2s}
+.help-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media (max-width:900px){.help-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.help-grid{grid-template-columns:1fr}}
+.help-card{display:grid;grid-template-columns:50px 1fr;gap:16px;align-items:start;border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px;background:var(--paper);transition:border-color .2s,box-shadow .2s}
 .help-card:hover{border-color:var(--gold);box-shadow:var(--shadow)}
 .help-card .ic{width:50px;height:50px;border-radius:14px;background:var(--gold-tint);color:var(--gold-deep);display:flex;align-items:center;justify-content:center}
 .help-card .ic svg{width:24px;height:24px}
 .help-card h3{font-size:16px;font-weight:700}
 .help-card p{font-size:13.5px;color:var(--ink-soft);margin-top:3px}
-.help-foot{text-align:center;margin-top:30px;font-size:15px;color:var(--ink-soft)}
+.help-foot{text-align:left;margin-top:30px;font-size:15px;color:var(--ink-soft)}
 .help-foot a{color:var(--emerald);font-weight:600}
 
 /* ---------- proof ---------- */
@@ -332,7 +369,8 @@ header.site.scrolled{border-color:var(--line);box-shadow:0 4px 20px rgba(23,35,3
 .quote .ph-tag{display:inline-block;font-size:11.5px;color:#7A5F2C;font-weight:700;letter-spacing:.05em;background:var(--gold-tint);border-radius:999px;padding:4px 11px;margin-bottom:10px}
 
 /* ---------- faq ---------- */
-.faq-list{max-width:840px;margin:0 auto;display:grid;gap:12px}
+.faq-list{max-width:840px;margin:0;display:grid;gap:12px}
+@media (min-width:1024px){.faq-list{max-width:none;grid-template-columns:1fr 1fr;gap:14px 20px;align-items:start}}
 .faq-item{border:1px solid var(--line);border-radius:14px;background:var(--paper);transition:border-color .2s}
 .faq-item[open]{border-color:var(--emerald)}
 .faq-item summary{list-style:none;cursor:pointer;padding:19px 22px;font-weight:600;font-size:16.5px;display:flex;justify-content:space-between;align-items:center;gap:16px}
@@ -343,7 +381,6 @@ header.site.scrolled{border-color:var(--line);box-shadow:0 4px 20px rgba(23,35,3
 
 /* ---------- lead form ---------- */
 .lead{background:var(--ink);color:#EAF1EC;position:relative;overflow:hidden}
-.lead::before{content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(61,217,172,.14),transparent 70%)}
 .lead .grid{display:grid;grid-template-columns:1fr 1.1fr;gap:52px;align-items:start;position:relative}
 @media (max-width:860px){.lead .grid{grid-template-columns:1fr;gap:34px}}
 .lead h2{color:#fff;font-size:clamp(27px,4vw,42px);font-weight:800}
@@ -379,8 +416,6 @@ textarea{min-height:88px;resize:vertical}
 /* ---------- footer ---------- */
 footer.site{background:#111A16;color:#C7D4CD;padding:64px 0 36px;font-size:14px}
 footer.site .cols{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px;margin-bottom:40px}
-@media (max-width:860px){footer.site .cols{grid-template-columns:1fr 1fr}}
-@media (max-width:560px){footer.site .cols{grid-template-columns:1fr}}
 footer.site h4{color:#fff;font-size:13px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px;font-weight:700}
 footer.site a{color:#C7D4CD;text-decoration:none;display:block;padding:4px 0}
 footer.site a:hover{color:#3DD9AC}
@@ -439,6 +474,196 @@ footer.site .lang-toggle{border-color:rgba(255,255,255,.28);color:rgba(255,255,2
 footer.site .lang-toggle:hover,footer.site .lang-toggle:focus-visible{color:#fff;border-color:#fff}
 html[lang="zh-CN"] body{font-family:'Inter','PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif}
 html[lang="zh-CN"] h1,html[lang="zh-CN"] h2,html[lang="zh-CN"] h3,html[lang="zh-CN"] .display,html[lang="zh-CN"] .form-card .fhead,html[lang="zh-CN"] .form-success .big,html[lang="zh-CN"] .chat-head b,html[lang="zh-CN"] .story-vis .badge .n{font-family:'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif;letter-spacing:0}
+/* ============================================================
+   v3 design layer — editorial de-templating (overrides above)
+   ============================================================ */
+/* type scale */
+.hero h1{font-size:clamp(38px,6.4vw,76px);line-height:1.02;letter-spacing:-.03em}
+@media (max-width:480px){.hero h1 .hl{white-space:normal}}
+.head h2{font-size:clamp(30px,4.6vw,52px)}
+.gx{font-style:italic;color:var(--gold-deep);font-family:'Bricolage Grotesque','Inter',sans-serif}
+
+/* header alignment variants */
+.head.rule{position:relative;padding-top:20px}
+.head.rule::before{content:"";position:absolute;top:0;left:2px;width:64px;height:2px;background:var(--gold)}
+@media (min-width:880px){
+  .head.split{display:grid;grid-template-columns:1.15fr .85fr;column-gap:56px;align-items:end;max-width:none}
+  .head.split .eyebrow{grid-column:1/-1}
+  .head.split h2{grid-column:1}
+  .head.split p{grid-column:2;margin:0 0 10px;justify-self:start}
+}
+
+/* section rhythm + numbered markers */
+main section{position:relative}
+section[data-num]::before{content:attr(data-num);position:absolute;top:30px;right:max(18px,3.5vw);font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(72px,10vw,132px);line-height:1;color:var(--ink);opacity:.05;pointer-events:none;z-index:0}
+section[data-num="02"]::before,section[data-num="04"]::before,section[data-num="06"]::before,section[data-num="08"]::before{right:auto;left:max(18px,3.5vw)}
+@media (max-width:767px){section[data-num]::before{display:none}}
+#problem{padding:112px 0 96px}
+#about{padding:120px 0}
+.how{padding:120px 0 128px}
+#why{padding:88px 0}
+#source{padding:118px 0 96px}
+#help{padding-top:1px}
+#proof{padding:72px 0}
+#faq{padding:118px 0}
+@media (max-width:640px){
+  #problem{padding:72px 0 64px}
+  #about{padding:72px 0}
+  .how{padding-top:80px;padding-bottom:80px}
+  #why{padding:64px 0}
+  #source{padding:76px 0 64px}
+  #proof{padding:56px 0}
+  #faq{padding:76px 0}
+}
+
+/* overlap moment (banner only — vs table sits inside its own section) */
+.vs{box-shadow:var(--shadow);border-radius:14px}
+.help-banner{width:100vw;max-width:100vw;margin:-70px calc(50% - 50vw) 56px;height:min(400px,40vw);border-radius:0;border-left:none;border-right:none;position:relative;z-index:2}
+@media (max-width:920px){.help-banner{height:220px;margin-top:-44px;margin-bottom:34px}}
+
+/* shape system */
+.collage-photo img{border-radius:210px 210px 24px 24px}
+@media (max-width:920px){.collage-photo img{border-radius:130px 130px 18px 18px}}
+.why-card.feature{border-radius:var(--r-feature)}
+.form-card{border-radius:var(--r-feature)}
+.cat.more{border-radius:var(--r-feature)}
+.vs,.step .card,.faq-item{border-radius:10px}
+.collage-photo .chipf.f2{rotate:-1.2deg}
+.collage-photo .chipf.f1{rotate:.8deg}
+.story-vis .badge{rotate:1.4deg}
+
+/* featured category tile + stagger */
+@media (min-width:960px){
+  .cats{grid-template-columns:repeat(3,1fr)}
+  .cats .cat:first-child{grid-row:span 2;display:flex;flex-direction:column}
+  .cats .cat:first-child .ph{aspect-ratio:auto;flex:1;min-height:300px}
+  .cats .cat:first-child .tx{padding:18px 20px 20px}
+  .cats .cat:nth-child(3n+2){margin-top:26px}
+}
+
+/* wider bleed on dark bands */
+.trust .wrap{max-width:1360px}
+
+/* calm the hovers (kept: buttons, fabs) */
+.risk:hover{transform:none;box-shadow:none}
+.why-card:hover{transform:none;box-shadow:none;border-color:var(--gold)}
+.cat:hover{transform:none}
+.help-card:hover{box-shadow:none}
+
+/* dashed route divider between sections */
+.route-div{max-width:var(--maxw);margin:0 auto;padding:26px 24px 0}
+.route-div svg{width:100%;height:26px;display:block;opacity:.75}
+
+/* hero entrance + integrated route (motion-safe: no animation = instantly visible) */
+@media (prefers-reduced-motion:no-preference){
+  .hero h1 .w{display:inline-block;opacity:0;transform:translateY(.55em) rotate(2deg);animation:wIn .55s cubic-bezier(.2,.7,.3,1) forwards;animation-delay:calc(80ms + var(--wi)*60ms)}
+  @keyframes wIn{to{opacity:1;transform:none}}
+  .hero .seal{animation:rIn .5s .02s both}
+  .hero .sub{animation:rIn .6s .5s both}
+  .hero-cta{animation:rIn .6s .68s both}
+  .hero-note{animation:rIn .6s .84s both}
+  @keyframes rIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  .collage-photo picture{animation:cIn .9s .3s cubic-bezier(.2,.75,.25,1) both}
+  @keyframes cIn{from{opacity:0;transform:translateY(28px) rotate(2.4deg) scale(.97)}to{opacity:1;transform:none}}
+  .collage-photo .chipf.f1{animation:chipPop .45s 1.05s cubic-bezier(.34,1.56,.64,1) both,float 9s ease-in-out 1.9s infinite}
+  .collage-photo .chipf.f2{animation:chipPop .45s 1.2s cubic-bezier(.34,1.56,.64,1) both,float 7s ease-in-out 2s infinite}
+  @keyframes chipPop{from{opacity:0;transform:scale(.55)}to{opacity:1;transform:scale(1)}}
+}
+@media (min-width:921px){
+  .hero-grid{position:relative;z-index:1}
+  .route-band{margin-top:-6px;position:relative;z-index:0;pointer-events:none}
+}
+
+/* scroll-linked + micro-interactions (Task 4) */
+html{interpolate-size:allow-keywords}
+.scroll-progress{position:absolute;left:0;right:0;bottom:-2px;height:2px;pointer-events:none}
+.scroll-progress .bar{height:100%;width:0;background:var(--emerald)}
+.cat .go{opacity:0;transform:translateX(-8px);transition:opacity .25s,transform .25s}
+.cat:hover .go{opacity:1;transform:none}
+@media (prefers-reduced-motion:no-preference){
+  /* markers + gold rule draw in when the section enters */
+  section[data-num]::before{opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s ease}
+  section[data-num].seen::before{opacity:.05;transform:none}
+  .head.rule::before{transform:scaleX(0);transform-origin:left;transition:transform .7s cubic-bezier(.2,.7,.3,1) .15s}
+  section.seen .head.rule::before{transform:scaleX(1)}
+  /* reveal variety per section */
+  #why .reveal:not(.in){transform:translateX(-28px)}
+  #help .help-card.reveal:not(.in){transform:translateX(28px)}
+  #proof .reveal:not(.in){transform:translateY(34px)}
+  #source .reveal{transition-duration:.85s}
+  /* category tiles: image pan replaces lift */
+  .cat:hover .ph img{transform:scale(1.06) translateX(2.5%)}
+  /* FAQ smooth open (modern browsers; others toggle instantly) */
+  .faq-item::details-content{block-size:0;overflow:clip;transition:block-size .35s ease,content-visibility .35s allow-discrete}
+  .faq-item[open]::details-content{block-size:auto}
+  /* the one ambient float outside the hero */
+  .story-vis img{animation:float 12s ease-in-out 1s infinite}
+}
+
+/* how-it-works: scroll-pinned scrub (desktop, motion-safe) — native sticky, never traps scroll */
+.how-vis-inner{position:relative;aspect-ratio:4/3;border-radius:18px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 60px -22px rgba(23,35,30,.28)}
+.hv{position:absolute;inset:0;margin:0;opacity:0}
+.hv.on{opacity:1}
+.hv img{width:100%;height:100%;object-fit:cover;display:block}
+.hv-inline{display:none}
+@media (min-width:1024px) and (prefers-reduced-motion: no-preference){
+  .how-pin{height:300vh}
+  .how-stage{position:sticky;top:78px;height:calc(100vh - 92px);display:flex;align-items:center;overflow:hidden}
+  .how-grid{display:grid;grid-template-columns:minmax(0,680px) minmax(340px,1fr);gap:64px;align-items:center;width:100%}
+  .how-stage .step{padding-bottom:22px}
+  .how-stage .step .card{padding:16px 20px}
+  .how-stage .step h3{font-size:17px}
+  .how-stage .step p{font-size:13.5px}
+  .hv{transition:opacity .5s ease}
+  .hv img{transform:scale(1.12) rotate(1.6deg);transition:transform .8s cubic-bezier(.2,.7,.25,1)}
+  .hv.on img{transform:none}
+}
+/* stacked fallback: phones, tablets <1024, and reduced-motion at any width */
+@media (max-width:1023px), (prefers-reduced-motion: reduce){
+  .how-pin{height:auto}
+  .how-stage{position:static;height:auto}
+  .how-vis{display:none}
+  .hv-inline{display:block;margin:0 0 20px 80px;border-radius:14px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow)}
+}
+@media (max-width:560px){.hv-inline{margin-left:0}}
+
+/* lead form: focus micro-moment (the one addition from the G audit) */
+.form-card{transition:box-shadow .25s}
+.form-card:focus-within{box-shadow:0 24px 60px rgba(0,0,0,.28),0 0 0 3px var(--emerald)}
+
+/* lead section: hierarchy + trust cues (Task H) */
+.lead::before{content:"";position:absolute;left:-8%;bottom:-40px;width:56%;height:220px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 200'%3E%3Cpath d='M20 170 C 180 40, 420 40, 580 150' fill='none' stroke='%23C9A96A' stroke-width='2' stroke-dasharray='5 10' stroke-linecap='round'/%3E%3C/svg%3E");background-size:contain;background-repeat:no-repeat;opacity:.22;pointer-events:none}
+.form-card .fhead{font-size:22px;position:relative;padding-bottom:14px;margin-bottom:20px}
+.form-card .fhead::after{content:"";position:absolute;left:0;bottom:0;width:52px;height:2px;background:var(--gold)}
+.form-trust{display:flex;flex-wrap:wrap;gap:6px 16px;margin:2px 0 12px;font-size:12.5px;font-weight:600;color:var(--emerald-deep)}
+.form-trust span{white-space:nowrap}
+.input:hover,select:hover,textarea:hover{border-color:#D8CFBB}
+#leadSubmit{padding:16px 27px;font-size:16px}
+
+/* footer polish */
+footer.site{padding:72px 0 40px}
+footer.site .cols{grid-template-columns:1.2fr .9fr .9fr 1.2fr;gap:56px;margin-bottom:44px}
+footer .fbrand p{max-width:36ch}
+.socials svg{width:16px;height:16px}
+footer.site .socials a{display:flex;align-items:center;justify-content:center;padding:0;transition:border-color .2s,color .2s,background .2s}
+footer.site .socials a:hover{background:rgba(61,217,172,.08)}
+footer.site .fbrand a.brand{display:inline-flex;padding:0}
+footer.site h4{color:#E9F3EE}
+footer.site h4::before{content:"";display:inline-block;width:14px;height:2px;background:var(--gold);margin-right:8px;vertical-align:4px}
+.socials{align-items:center}
+.socials .lang-toggle{margin:0 0 0 8px;height:38px;display:inline-flex;align-items:center}
+.foot-note{color:#93A89E;font-size:12.5px;line-height:1.75;padding-top:26px}
+@media (max-width:900px){
+  footer.site .cols{grid-template-columns:1fr 1fr;gap:36px}
+  footer.site a{padding:9px 0}
+  .chat-opts .chip{padding:10px 14px}
+}
+@media (max-width:560px){footer.site .cols{grid-template-columns:1fr;gap:26px}}
+@media (min-width:1600px){:root{--maxw:1380px}}
+
+/* paper grain */
+body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.055 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:160px 160px}
+
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
 </style>
 </head>
@@ -466,6 +691,7 @@ html[lang="zh-CN"] h1,html[lang="zh-CN"] h2,html[lang="zh-CN"] h3,html[lang="zh-
       <button class="lang-toggle" type="button" aria-label="切换到中文">中文</button>
     </nav>
   </div>
+  <div class="scroll-progress" aria-hidden="true"><div class="bar" id="scrollBar"></div></div>
 </header>
 
 <main id="top">
@@ -477,14 +703,14 @@ html[lang="zh-CN"] h1,html[lang="zh-CN"] h2,html[lang="zh-CN"] h3,html[lang="zh-
       <div>
         <span class="seal">◆ Backed by a certified factory network</span>
         <h1>Source from China, <span class="hl">without the stress.</span></h1>
-        <p class="sub">One Australian partner between you and the right factory. We source it, sample it, quality-check it and deliver it to your door — you approve every step.</p>
+        <p class="sub">One Australian team between you and the right factory. We find it, sample it, check it in China and land it at your door — nothing moves without your say-so.</p>
         <div class="hero-cta">
           <a class="btn btn-primary" href="#quote"><span>Get a quote</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
           <a class="btn btn-gold" href="#quote" data-product="Sample request">Request a sample</a>
         </div>
-        <p class="hero-note"><span class="dot"></span> No obligation · We reply within one business day</p>
+        <p class="hero-note"><span class="dot"></span> No obligation · A person replies within one business day</p>
       </div>
 
       <!-- real product photos from the factory catalogues -->
@@ -521,77 +747,85 @@ html[lang="zh-CN"] h1,html[lang="zh-CN"] h2,html[lang="zh-CN"] h3,html[lang="zh-
           <circle r="17" fill="var(--gold-tint)" stroke="var(--gold)"/>
           <g transform="translate(-8,-8)"><path d="M2 8l6-5 6 5v6H2V8z" fill="none" stroke="var(--gold-deep)" stroke-width="1.6" stroke-linejoin="round"/></g>
         </g>
-        <text x="950" y="124" font-family="Inter" font-size="13" font-weight="600" fill="#9A7B3F" text-anchor="middle">Your door · Australia</text>
+        <text x="918" y="124" font-family="Inter" font-size="13" font-weight="600" fill="#9A7B3F" text-anchor="middle">Your door · Australia</text>
       </svg>
     </div>
   </div>
 </section>
 
 <!-- ================= TRUST BAR ================= -->
-<section class="trust" style="padding:52px 0">
+<section class="trust">
   <div class="wrap">
-    <div class="eyebrow" style="color:#9FE9CE">Certified, quality-checked, proven</div>
-    <div class="certs" style="margin-top:14px">
-      <span class="cert"><span class="tick">✓</span> BSCI</span>
-      <span class="cert"><span class="tick">✓</span> ISO 14001</span>
-      <span class="cert"><span class="tick">✓</span> GRS</span>
-      <span class="cert"><span class="tick">✓</span> ICS</span>
-      <span class="cert"><span class="tick">✓</span> SGS</span>
-      <span class="cert"><span class="tick">✓</span> FSC</span>
-      <span class="cert"><span class="tick">✓</span> Higg Index</span>
-    </div>
-    <p class="brandline">Our partner factories already produce for <b>leading global retail brands</b> — the quality bar is set high before we ever quote you.</p>
-    <!-- PLACEHOLDER: add brand logos ONLY once you've confirmed permission to display them -->
-    <div class="logo-slots" aria-hidden="true">
-      <div class="logo-slot">logo slot</div><div class="logo-slot">logo slot</div>
-      <div class="logo-slot">logo slot</div><div class="logo-slot">logo slot</div>
+    <div class="trust-grid">
+      <div>
+        <div class="eyebrow" style="color:#9FE9CE">The network's credentials</div>
+        <p class="tstat">Thirty years of making. Certifications you can check.</p>
+        <p class="brandline">The factories we work with already make product for some of the <b>world's biggest retail brands</b>. That's the quality bar before we even open your quote.</p>
+        <!-- PLACEHOLDER: when you have permission to show client-brand logos, replace
+             the .tbrands line below with a logo row. Never show logos without permission. -->
+        <p class="tbrands">Trusted by factories that supply global brands.</p>
+      </div>
+      <div>
+        <h4 class="tlabel">Held across the partner network</h4>
+        <ul class="certlist">
+          <li>BSCI</li>
+          <li>ISO 14001</li>
+          <li>GRS</li>
+          <li>ICS</li>
+          <li>SGS</li>
+          <li>FSC</li>
+          <li>Higg Index</li>
+        </ul>
+      </div>
     </div>
     <div class="trust-stats">
       <!-- PLACEHOLDER: confirm/replace numbers before launch -->
       <div class="stat"><div class="n">30<em>+</em></div><div class="l">years of manufacturing behind our network</div></div>
       <div class="stat"><div class="n">7<em>+</em></div><div class="l">international certifications held</div></div>
       <div class="stat"><div class="n">100<em>%</em></div><div class="l">of orders inspected before shipping</div></div>
-      <div class="stat"><div class="n">1</div><div class="l">point of contact, end to end</div></div>
+      <div class="stat"><div class="n">1</div><div class="l">person to call, start to finish</div></div>
     </div>
   </div>
 </section>
 
 <!-- ================= PROBLEM ================= -->
-<section class="problem" id="problem">
+<section class="problem" id="problem" data-num="01">
   <div class="wrap">
-    <div class="head center reveal">
+    <div class="head rule reveal">
       <div class="eyebrow">Why sourcing goes wrong</div>
       <h2>China is a goldmine — and a minefield.</h2>
-      <p>The prices and choice are unbeatable. The risk is knowing who to trust — and what will actually arrive.</p>
+      <p>The prices and the range are unbeatable. The hard part is knowing who to trust — and what'll actually turn up.</p>
     </div>
     <div class="problem-grid">
-      <div class="risk reveal"><span class="big" aria-hidden="true">01</span><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/><path d="M17 3l4 4M21 3l-4 4"/></svg></div><h3>Who's real?</h3><p>Marketplaces are full of traders posing as factories — hard to tell a genuine maker from a middleman marking up.</p></div>
-      <div class="risk reveal d1"><span class="big" aria-hidden="true">02</span><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 4-9 4-9-4 9-4z"/><path d="M3 12l9 4 9-4M3 17l9 4 9-4"/></svg></div><h3>Quality roulette</h3><p>The sample is perfect; the bulk order isn't. Without inspection before shipping, you find out too late.</p></div>
-      <div class="risk reveal d2"><span class="big" aria-hidden="true">03</span><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M9 9h.01M13 9h.01M17 9h.01" stroke-width="2.6"/></svg></div><h3>Lost in translation</h3><p>Specs, timelines and expectations slip through language and time-zone gaps — small errors get expensive.</p></div>
-      <div class="risk reveal d3"><span class="big" aria-hidden="true">04</span><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="14" height="10" rx="1"/><path d="M16 10h4l2 3v4h-6M5 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM18 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg></div><h3>MOQs & logistics</h3><p>High minimums, freight, customs and GST turn a simple order into a maze most buyers navigate alone.</p></div>
+      <div class="risk reveal"><span class="big" aria-hidden="true">01</span><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/><path d="M17 3l4 4M21 3l-4 4"/></svg></div><h3>Who's actually a factory?</h3><p>Sourcing sites are full of traders posing as factories — and from Sydney, it's near impossible to tell the difference.</p></div>
+      <div class="risk reveal d1"><span class="big" aria-hidden="true">02</span><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 4-9 4-9-4 9-4z"/><path d="M3 12l9 4 9-4M3 17l9 4 9-4"/></svg></div><h3>Quality roulette</h3><p>The sample's perfect. Then the container lands and box 40 isn't. Without an inspection before shipping, you find out when it's already yours.</p></div>
+      <div class="risk reveal d2"><span class="big" aria-hidden="true">03</span><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M9 9h.01M13 9h.01M17 9h.01" stroke-width="2.6"/></svg></div><h3>Lost in translation</h3><p>A spec that was 'confirmed' at 11pm your time has a way of changing by production. Small misunderstandings become expensive cartons.</p></div>
+      <div class="risk reveal d3"><span class="big" aria-hidden="true">04</span><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="14" height="10" rx="1"/><path d="M16 10h4l2 3v4h-6M5 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM18 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg></div><h3>MOQs & logistics</h3><p>Minimums, freight, customs, GST. None of it is hard once you've done it fifty times. Most buyers are doing it for the first time, alone.</p></div>
     </div>
-    <p class="kicker reveal">There's a simpler way: <b>one local partner who handles all of it.</b></p>
+    <p class="kicker reveal">Or: <b>one local partner who's already done it fifty times.</b></p>
   </div>
 </section>
 
+<div class="route-div" aria-hidden="true"><svg viewBox="0 0 1200 44" preserveAspectRatio="none"><path d="M0 26 C 300 8, 900 42, 1200 22" fill="none" stroke="var(--gold)" stroke-width="2" stroke-dasharray="6 10" stroke-linecap="round"/></svg></div>
+
 <!-- ================= WHO WE ARE (story) ================= -->
-<section id="about">
+<section id="about" data-num="02">
   <div class="wrap">
     <div class="story-grid">
       <div class="reveal">
         <div class="eyebrow">Who we are</div>
         <h2 style="font-size:clamp(26px,3.8vw,38px);font-weight:800;margin-top:10px">Not a broker with a contact list. A real factory network.</h2>
         <div class="story-points">
-          <div class="spoint"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 21V9l6 4V9l6 4V9l6-4v16H3z"/></svg></div><div><h3>Born on the factory floor</h3><p>Our supply comes from an established manufacturing network with around three decades of production behind it — real factories, not a directory.</p></div></div>
-          <div class="spoint"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></div><div><h3>Certified and audited</h3><p>Partners hold BSCI, ISO, GRS and ICS certifications — ethics and standards you can verify, not just take on faith.</p></div></div>
-          <div class="spoint"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8M12 3c2.5 2.6 3.8 5.7 3.8 9S14.5 18.4 12 21c-2.5-2.6-3.8-5.7-3.8-9S9.5 5.6 12 3z"/></svg></div><div><h3>Australian-run, China-connected</h3><p>You deal with a local team in your time zone — backed by people on the ground in the factories, speaking the language.</p></div></div>
+          <div class="spoint"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 21V9l6 4V9l6 4V9l6-4v16H3z"/></svg></div><div><h3>Born on the factory floor</h3><p>We didn't start with a website. The supply behind Souklane is a manufacturing network that's been making product for about thirty years — real floors, real machines, not a directory.</p></div></div>
+          <div class="spoint"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></div><div><h3>Certified and audited</h3><p>Our partner factories hold BSCI, ISO, GRS and ICS certifications. You can ask for the paperwork — we'd rather you did.</p></div></div>
+          <div class="spoint"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8M12 3c2.5 2.6 3.8 5.7 3.8 9S14.5 18.4 12 21c-2.5-2.6-3.8-5.7-3.8-9S9.5 5.6 12 3z"/></svg></div><div><h3>Australian-run, China-connected</h3><p>You talk to a local team on Australian hours. Behind us are people standing on the factory floor in China, speaking the language, watching your order.</p></div></div>
         </div>
       </div>
       <div class="story-vis reveal d2">
-        <!-- AI illustration generated for Souklane (ekly) — self-hosted in assets/ -->
+        <!-- AI journey illustration generated for Souklane (ekly) — self-hosted in assets/ -->
         <picture>
-          <source srcset="assets/story-illustration.webp" type="image/webp" />
-          <img src="assets/story-illustration.png" alt="Illustration of the journey from a Chinese factory, by ship, to an Australian front door" loading="lazy" />
+          <source srcset="assets/story-journey.webp" type="image/webp" />
+          <img src="assets/story-journey.jpg" alt="Illustration of the journey from a Chinese factory, by sea freight, to an Australian front door" width="1160" height="778" loading="lazy" />
         </picture>
         <div class="badge"><span class="n">~30yrs</span><span class="t">of manufacturing behind our network</span></div>
       </div>
@@ -607,15 +841,23 @@ html[lang="zh-CN"] h1,html[lang="zh-CN"] h2,html[lang="zh-CN"] h3,html[lang="zh-
 </section>
 
 <!-- ================= HOW IT WORKS ================= -->
-<section class="how" id="how">
+<section class="how" id="how" data-num="03">
   <div class="wrap">
-    <div class="head center reveal">
+    <div class="head rule reveal">
       <div class="eyebrow">How it works</div>
       <h2>Five steps. You approve every one.</h2>
-      <p>You're never in the dark and never locked in — nothing moves forward without your sign-off.</p>
+      <p>Nothing moves to the next step until you've signed off on the last one.</p>
     </div>
+  </div>
+  <div class="how-pin" id="howPin">
+    <div class="how-stage">
+      <div class="wrap how-grid">
     <div class="steps" id="stepsWrap">
       <div class="rail" aria-hidden="true"><div class="fill" id="railFill"></div></div>
+      <picture class="hv-inline" aria-hidden="true">
+        <source srcset="assets/how-brief.webp" type="image/webp" />
+        <img src="assets/how-brief.jpg" alt="" width="900" height="675" loading="lazy" />
+      </picture>
 
       <div class="step" data-step>
         <div class="num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
@@ -623,28 +865,54 @@ html[lang="zh-CN"] h1,html[lang="zh-CN"] h2,html[lang="zh-CN"] h3,html[lang="zh-
       </div>
       <div class="step" data-step>
         <div class="num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 21V9l6 4V9l6 4V9l6-4v16H3z"/></svg></div>
-        <div class="card"><h3><span class="stg">STEP 2</span>We match the right factory</h3><p>We pick the certified maker in our network that's genuinely built for your product — not whoever's nearest.</p></div>
+        <div class="card"><h3><span class="stg">STEP 2</span>We match the right factory</h3><p>We pick the certified factory in our network that actually makes your kind of product — not whoever answered first.</p></div>
       </div>
+      <picture class="hv-inline" aria-hidden="true">
+        <source srcset="assets/how-qc.webp" type="image/webp" />
+        <img src="assets/how-qc.jpg" alt="" width="900" height="675" loading="lazy" />
+      </picture>
       <div class="step" data-step>
         <div class="num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v8H4v-8M2 7h20v5H2zM12 7v13M12 7c-2 0-4-1-4-3 0-1.5 1.5-2 2.5-1.5S12 5 12 7zm0 0c2 0 4-1 4-3 0-1.5-1.5-2-2.5-1.5S12 5 12 7z"/></svg></div>
-        <div class="card"><h3><span class="stg">STEP 3</span>Sample & you approve</h3><p>Hold the real thing before you commit. Full OEM/ODM — colours, sizes, logo, fabric, packaging.<span class="badge">Nothing proceeds without your yes</span></p></div>
+        <div class="card"><h3><span class="stg">STEP 3</span>Sample & you approve</h3><p>You hold the real thing before a single unit goes into production. Full OEM/ODM — your colours, sizes, logo, fabric, packaging.<span class="badge">Nothing proceeds without your yes</span></p></div>
       </div>
       <div class="step" data-step>
         <div class="num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
         <div class="card"><h3><span class="stg">STEP 4</span>Production & quality check</h3><p>We oversee the run and inspect the goods in China before anything ships — defects get caught there, not in your warehouse.</p></div>
       </div>
+      <picture class="hv-inline" aria-hidden="true">
+        <source srcset="assets/how-freight.webp" type="image/webp" />
+        <img src="assets/how-freight.jpg" alt="" width="900" height="675" loading="lazy" />
+      </picture>
       <div class="step" data-step>
         <div class="num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8l6-5 6 5v6H2V8z" transform="translate(4,4)"/><path d="M6 21h12"/></svg></div>
         <div class="card"><h3><span class="stg">STEP 5</span>Freight, customs & delivered</h3><p>We handle shipping, clearance and delivery to your door in Australia. One partner, one clear landed price.</p></div>
+      </div>
+    </div>
+    <aside class="how-vis" aria-hidden="true">
+      <div class="how-vis-inner">
+        <picture class="hv hv-1 on">
+          <source srcset="assets/how-brief.webp" type="image/webp" />
+          <img src="assets/how-brief.jpg" alt="" width="900" height="675" loading="lazy" />
+        </picture>
+        <picture class="hv hv-2">
+          <source srcset="assets/how-qc.webp" type="image/webp" />
+          <img src="assets/how-qc.jpg" alt="" width="900" height="675" loading="lazy" />
+        </picture>
+        <picture class="hv hv-3">
+          <source srcset="assets/how-freight.webp" type="image/webp" />
+          <img src="assets/how-freight.jpg" alt="" width="900" height="675" loading="lazy" />
+        </picture>
+      </div>
+    </aside>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ================= WHY US ================= -->
-<section id="why">
+<section id="why" data-num="04">
   <div class="wrap">
-    <div class="head reveal">
+    <div class="head rule reveal">
       <div class="eyebrow">Why us</div>
       <h2>The difference is the network behind us.</h2>
     </div>
@@ -658,15 +926,17 @@ html[lang="zh-CN"] h1,html[lang="zh-CN"] h2,html[lang="zh-CN"] h3,html[lang="zh-
       <div class="why-card reveal d2"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M8.5 11l2 2 3.5-3.5"/></svg></div><h3>Checked before it ships</h3><p>Every order is inspected in China before dispatch. Problems get caught there — not in your warehouse.</p></div>
       <div class="why-card reveal d1"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h3l2 3v5h-2M2 6h13v10H2zM5 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM17 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg></div><h3>One partner, end to end</h3><p>Sourcing, samples, QC, freight, customs, delivery — one team you actually talk to.</p></div>
       <div class="why-card reveal d2"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div><h3>Custom made to spec</h3><p>Bring an idea to life or adapt an existing product — materials, branding and packaging, your way.</p></div>
-      <div class="why-card reveal d3"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 13s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01" stroke-width="2.4"/></svg></div><h3>Australian team</h3><p>A local contact in your time zone who gets AU expectations — backed by real factory access in China.</p></div>
+      <div class="why-card reveal d3"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 13s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01" stroke-width="2.4"/></svg></div><h3>Australian team</h3><p>Someone local who answers the phone on your hours — and gets what Australian retail expects.</p></div>
     </div>
   </div>
 </section>
 
+<div class="route-div" aria-hidden="true"><svg viewBox="0 0 1200 44" preserveAspectRatio="none"><path d="M0 22 C 300 40, 900 6, 1200 26" fill="none" stroke="var(--gold)" stroke-width="2" stroke-dasharray="6 10" stroke-linecap="round"/></svg></div>
+
 <!-- ================= WHAT WE SOURCE ================= -->
-<section class="src" id="source">
+<section class="src" id="source" data-num="05">
   <div class="wrap">
-    <div class="head reveal">
+    <div class="head split reveal">
       <div class="eyebrow">What we source</div>
       <h2>Starting with soft goods. Growing fast.</h2>
       <p>The lines we source — every one customisable, with samples before you commit.</p>
@@ -680,7 +950,7 @@ html[lang="zh-CN"] h1,html[lang="zh-CN"] h2,html[lang="zh-CN"] h3,html[lang="zh-
       <a class="cat reveal d2" href="#quote" data-product="Gloves"><span class="go">→</span><div class="ph"><img src="assets/cat-gloves-v2.jpg" alt="Leather sports gloves" loading="lazy"/></div><div class="tx"><h3>Gloves</h3><p>Fashion, sports &amp; workwear</p></div></a>
       <a class="cat more reveal d3" href="#quote" data-product="Other">
         <h3>Don't see your product?</h3>
-        <p>Eyewear, footwear, accessories and more — our network is bigger than this page. Tell us what you need and we'll check it against our factories, fast.</p>
+        <p>Eyewear, footwear, accessories and more — our network is bigger than this page. Tell us what you need and we'll give you a straight yes or no, fast.</p>
         <span class="fauxbtn"><span>Ask us about it</span>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </span>
@@ -693,17 +963,17 @@ html[lang="zh-CN"] h1,html[lang="zh-CN"] h2,html[lang="zh-CN"] h3,html[lang="zh-
 </section>
 
 <!-- ================= WHO WE HELP ================= -->
-<section id="help">
+<section id="help" data-num="06">
   <div class="wrap">
-    <div class="head reveal">
-      <div class="eyebrow">Who we help</div>
-      <h2>Built for businesses that need it made right.</h2>
-    </div>
     <div class="help-banner reveal">
       <picture>
         <source srcset="assets/help-banner.webp" type="image/webp" />
         <img src="assets/help-banner.jpg" alt="A styled retail line-up of quilted bags, caps, a backpack and plush charms sourced by Souklane" width="1600" height="893" loading="lazy" />
       </picture>
+    </div>
+    <div class="head rule reveal">
+      <div class="eyebrow">Who we help</div>
+      <h2>Built for businesses that need it made right.</h2>
     </div>
     <div class="help-grid">
       <div class="help-card reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-5h16l1 5M3 9v11h18V9M3 9h18M9 20v-6h6v6"/></svg></div><div><h3>Retailers &amp; store owners</h3><p>Stock and private-label lines for your shelves or online shop.</p></div></div>
@@ -718,12 +988,12 @@ html[lang="zh-CN"] h1,html[lang="zh-CN"] h2,html[lang="zh-CN"] h3,html[lang="zh-
 </section>
 
 <!-- ================= PROOF ================= -->
-<section class="proof" id="proof">
+<section class="proof" id="proof" data-num="07">
   <div class="wrap">
-    <div class="head reveal">
+    <div class="head split reveal">
       <div class="eyebrow">Proof</div>
-      <h2>Quality that's already trusted at scale.</h2>
-      <p>Our factory partners manufacture for some of the world's best-known retail brands. Client stories from our pilot are coming soon.</p>
+      <h2>Proven factories. New brand. Honest pitch.</h2>
+      <p>Our partner factories make product for some of the world's best-known retail brands. Souklane itself is new — pilot client stories will sit here soon, once they're real.</p>
     </div>
     <div class="quotes">
       <!-- PLACEHOLDER: replace with real testimonials from your pilot clients -->
@@ -734,21 +1004,24 @@ html[lang="zh-CN"] h1,html[lang="zh-CN"] h2,html[lang="zh-CN"] h3,html[lang="zh-
   </div>
 </section>
 
+<div class="route-div" aria-hidden="true"><svg viewBox="0 0 1200 44" preserveAspectRatio="none"><path d="M0 24 C 300 10, 900 38, 1200 20" fill="none" stroke="var(--gold)" stroke-width="2" stroke-dasharray="6 10" stroke-linecap="round"/></svg></div>
+
 <!-- ================= FAQ ================= -->
-<section id="faq">
+<section id="faq" data-num="08">
   <div class="wrap">
-    <div class="head center reveal">
+    <div class="head rule reveal">
       <div class="eyebrow">FAQ</div>
       <h2>Straight answers.</h2>
     </div>
     <div class="faq-list reveal">
-      <details class="faq-item"><summary>What are the minimum order quantities?<span class="plus">+</span></summary><div class="a">MOQs depend on the product and factory, but because we work across a network we can often match you to a maker with a lower minimum than going direct. Tell us your quantity and we'll be upfront about what's realistic.</div></details>
-      <details class="faq-item"><summary>How does pricing work — and why not go direct?<span class="plus">+</span></summary><div class="a">You get one clear landed price covering sourcing, quality control, freight and customs — no surprise fees. Going "direct" still means doing supplier vetting, QC, freight and customs yourself, and paying for mistakes. We do all of it, backed by real factory relationships, so you're closer to true factory cost with none of the risk.</div></details>
-      <details class="faq-item"><summary>What are typical lead times?<span class="plus">+</span></summary><div class="a">A rough guide: samples in around 1–2 weeks, production in about 3–5 weeks, plus shipping. It varies by product and quantity — we'll give you real dates before you commit.</div></details>
+      <details class="faq-item"><summary>What are the minimum order quantities?<span class="plus">+</span></summary><div class="a">Depends on the product and the factory. Working across a network means we can often find a maker with a lower minimum than you'd get going direct. Tell us your numbers and we'll tell you what's realistic — even when the answer is 'not yet'.</div></details>
+      <details class="faq-item"><summary>How does pricing work — and why not go direct?<span class="plus">+</span></summary><div class="a">One clear landed price, covering sourcing, quality control, freight and customs — no surprise fees. You can absolutely go direct; you'll just also be doing the vetting, the QC, the freight and the customs paperwork yourself, and wearing the cost when something slips. We do all of it, on real factory relationships, so you sit closer to true factory cost without the risk.</div></details>
+      <details class="faq-item"><summary>What are typical lead times?<span class="plus">+</span></summary><div class="a">As a rough guide: samples in 1–2 weeks, production 3–5 weeks, plus shipping. We'll give you real dates before you commit — not after.</div></details>
       <details class="faq-item"><summary>How do you check quality?<span class="plus">+</span></summary><div class="a">You approve a physical sample first. We then oversee production and inspect the goods in China before they ship, so defects are caught before they ever reach Australia.</div></details>
-      <details class="faq-item"><summary>Can I get a custom product or a sample?<span class="plus">+</span></summary><div class="a">Yes. We offer full OEM/ODM — your colours, sizes, logo, fabric and packaging — and we get you a sample to sign off before any bulk order proceeds.</div></details>
-      <details class="faq-item"><summary>What about shipping, customs and GST?<span class="plus">+</span></summary><div class="a">We arrange freight and customs clearance and deliver to your door. Australian GST applies on imports, and many goods qualify for duty-free treatment under ChAFTA — we'll walk you through what applies to your order.</div></details>
-      <details class="faq-item"><summary>Is it safe? How do payments work?<span class="plus">+</span></summary><div class="a">You deal with one accountable Australian contact, not an anonymous overseas seller. We set out clear, staged payment terms in writing before anything begins.</div></details>
+      <details class="faq-item"><summary>Can I get a custom product or a sample?<span class="plus">+</span></summary><div class="a">Yes. Full OEM/ODM — your colours, sizes, logo, fabric and packaging — and you sign off a physical sample before any bulk order goes ahead.</div></details>
+      <details class="faq-item"><summary>What about shipping, customs and GST?<span class="plus">+</span></summary><div class="a">We arrange freight and customs clearance and deliver to your door. GST applies on imports, and plenty of goods come in duty-free under ChAFTA — we'll walk you through exactly what applies to your order.</div></details>
+      <details class="faq-item"><summary>What documents come with my shipment?<span class="plus">+</span></summary><div class="a">The full set: commercial invoice, packing list, and — where your goods qualify — a ChAFTA Certificate of Origin so the duty-free rate actually gets applied at the border. You get copies of everything.</div></details>
+      <details class="faq-item"><summary>Is it safe? How do payments work?<span class="plus">+</span></summary><div class="a">You're dealing with an accountable Australian contact, not a seller who vanishes when the goods ship. Payment is staged, agreed in writing, before anything begins.</div></details>
     </div>
   </div>
 </section>
@@ -760,7 +1033,7 @@ html[lang="zh-CN"] h1,html[lang="zh-CN"] h2,html[lang="zh-CN"] h3,html[lang="zh-
       <div class="reveal">
         <div class="eyebrow">Get a quote</div>
         <h2>Tell us what you need.</h2>
-        <p class="sub">Send the basics and we'll come back with a clear, no-obligation quote — one price, quality checked, delivered.</p>
+        <p class="sub">Send the basics and we'll come back with a clear, no-obligation quote. One price: sourced, checked, delivered.</p>
         <ul class="assur">
           <li>Reply within one business day</li>
           <li>No obligation, no pressure</li>
@@ -779,6 +1052,7 @@ html[lang="zh-CN"] h1,html[lang="zh-CN"] h2,html[lang="zh-CN"] h3,html[lang="zh-
             <div class="field"><label for="company">Company <span class="opt">(optional)</span></label><input class="input" id="company" name="company" type="text" autocomplete="organization" /></div>
           </div>
           <div class="field"><label for="email">Email</label><input class="input" id="email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="phone">Phone <span class="opt">(optional)</span></label><input class="input" id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" /></div>
           <div class="field"><label for="product">Product interest</label>
             <select id="product" name="product" required>
               <option value="" disabled selected>Choose one…</option>
@@ -797,6 +1071,7 @@ html[lang="zh-CN"] h1,html[lang="zh-CN"] h2,html[lang="zh-CN"] h3,html[lang="zh-
             </div>
           </div>
           <div class="field"><label for="message">Anything else? <span class="opt">(optional)</span></label><textarea id="message" name="message" placeholder="Tell us about the product, colours, branding…"></textarea></div>
+          <p class="form-trust"><span>✓ 1 business day reply</span><span>✓ No obligation</span><span>✓ Samples first</span></p>
           <button class="btn btn-primary" type="submit" id="leadSubmit" style="width:100%;justify-content:center">Get my quote</button>
           <p class="privacy">We'll only use your details to respond to your enquiry. No spam, ever.</p>
           <div class="form-msg" id="formMsg"></div>
@@ -804,7 +1079,7 @@ html[lang="zh-CN"] h1,html[lang="zh-CN"] h2,html[lang="zh-CN"] h3,html[lang="zh-
         <div class="form-success" id="formSuccess">
           <div class="ok-ic"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
           <div class="big">Thanks — we're on it.</div>
-          <p class="muted">We've captured your enquiry and we'll be in touch within one business day.</p>
+          <p class="muted">We've got your enquiry. A person will reply within one business day.</p>
         </div>
       </div>
     </div>
@@ -828,12 +1103,12 @@ html[lang="zh-CN"] h1,html[lang="zh-CN"] h2,html[lang="zh-CN"] h3,html[lang="zh-
           <span class="word">Souklane</span>
         </a>
         <p>Your Australian partner for sourcing from a certified factory network in China.</p>
-        <button class="lang-toggle" type="button" aria-label="切换到中文">中文</button>
         <!-- PLACEHOLDER: point these at your real social profiles when created -->
         <div class="socials">
           <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zm7.5 0h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-8.5c0-2-.04-4.65-2.83-4.65-2.84 0-3.27 2.2-3.27 4.5V24H8V8z"/></svg></a>
           <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1.4" fill="currentColor" stroke="none"/></svg></a>
           <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.7c0-.9.3-1.6 1.7-1.6h1.6V4.2c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.4-4 4.1v2.6H7.7V14h2.7v8h3.1z"/></svg></a>
+          <button class="lang-toggle" type="button" aria-label="切换到中文">中文</button>
         </div>
       </div>
       <div>
@@ -876,7 +1151,7 @@ html[lang="zh-CN"] h1,html[lang="zh-CN"] h2,html[lang="zh-CN"] h3,html[lang="zh-
 </div>
 
 <div class="chat-panel" id="chatPanel" role="dialog" aria-label="Chat with Souklane">
-  <div class="chat-head"><b>Hi 👋 How can we help?</b><p>Quick answers, or chat to a human.</p><button class="x" id="chatClose" type="button" aria-label="Close chat">×</button></div>
+  <div class="chat-head"><b>Hi — how can we help?</b><p>Quick answers, or chat to a human.</p><button class="x" id="chatClose" type="button" aria-label="Close chat">×</button></div>
   <div class="chat-body" id="chatBody">
     <div class="bubble bot">Ask me a common question, or jump straight to WhatsApp or a quote.</div>
   </div>
@@ -887,6 +1162,30 @@ html[lang="zh-CN"] h1,html[lang="zh-CN"] h2,html[lang="zh-CN"] h3,html[lang="zh-
     <button class="chip" data-q="ship">Shipping?</button>
     <button class="chip wa" data-q="wa">Chat on WhatsApp</button>
     <button class="chip" data-q="quote">Get a quote</button>
+  </div>
+</div>
+
+<!-- ================= CATEGORY QUICK-QUOTE POPUP ================= -->
+<div class="pop-overlay" id="catOverlay" role="dialog" aria-modal="true" aria-label="Quick quote request">
+  <div class="pop">
+    <button class="x" id="catClose" type="button" aria-label="Close">×</button>
+    <div class="eyebrow">Quick quote</div>
+    <h3>Tell us what you're after.</h3>
+    <p>We'll come back within one business day with a real quote.</p>
+    <form id="catForm" novalidate>
+      <div class="hp" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
+      <div class="field"><label for="catName">Name</label><input class="input" id="catName" type="text" autocomplete="name" required /></div>
+      <div class="field"><label for="catEmail">Email</label><input class="input" id="catEmail" type="email" autocomplete="email" required /></div>
+      <div class="field"><label for="catPhone">Phone <span class="opt">(optional)</span></label><input class="input" id="catPhone" type="tel" autocomplete="tel" inputmode="tel" /></div>
+      <div class="field"><label for="catProduct">Product</label>
+        <select id="catProduct">
+          <option value="Bags">Bags</option><option value="Laptop bags">Laptop bags</option><option value="Headwear">Headwear</option><option value="Plush">Plush</option>
+          <option value="Gloves">Gloves</option><option value="Eyewear">Eyewear</option><option value="Footwear">Footwear</option><option value="Other">Other</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" type="submit" id="catSubmit" style="width:100%;justify-content:center">Get my quote</button>
+      <p class="pop-msg" id="catMsg"></p>
+    </form>
   </div>
 </div>
 
@@ -950,20 +1249,131 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 const stepsWrap = document.getElementById('stepsWrap');
 const railFill = document.getElementById('railFill');
 const steps = [...document.querySelectorAll('[data-step]')];
+const howImgs = [...document.querySelectorAll('.how-vis .hv')];
+const stepImgMap = [0, 0, 1, 1, 2]; /* steps 1-2 -> brief, 3-4 -> QC, 5 -> freight */
+const pinTrack = document.getElementById('howPin');
+const pinMode = matchMedia('(min-width:1024px) and (prefers-reduced-motion: no-preference)');
 function updateRail(){
   if(!stepsWrap) return;
+  if(pinTrack && pinMode.matches){
+    /* pinned scrub: progress through the track drives step + image — no drift */
+    const tr = pinTrack.getBoundingClientRect();
+    const scrub = Math.max(1, tr.height - innerHeight);
+    const p = Math.min(1, Math.max(0, -tr.top / scrub));
+    const pos = Math.min(4.999, p * 5);
+    const idx = Math.floor(pos), sub = pos - idx;
+    railFill.style.height = (p * 100) + '%';
+    steps.forEach((s, i)=>{
+      s.classList.toggle('active', i <= idx);
+      s.classList.toggle('current', i === idx);
+    });
+    const want = stepImgMap[idx];
+    howImgs.forEach((img, i)=> img.classList.toggle('on', i === want));
+    const on = howImgs[want];
+    if(on) on.style.transform = 'translateY(' + ((sub - .5) * -12).toFixed(1) + 'px)';
+    return;
+  }
+  /* stacked mode: threshold-based (mobile / tablet / reduced-motion) */
   const r = stepsWrap.getBoundingClientRect();
   const vh = innerHeight;
   const prog = Math.min(1, Math.max(0, (vh*0.62 - r.top) / r.height));
   railFill.style.height = (prog*100) + '%';
-  steps.forEach(s=>{
-    const sr = s.getBoundingClientRect();
-    s.classList.toggle('active', sr.top < vh*0.62);
+  let cur = -1;
+  steps.forEach((s, i)=>{
+    const on = s.getBoundingClientRect().top < vh*0.62;
+    s.classList.toggle('active', on);
+    if(on) cur = i;
   });
+  steps.forEach((s, i)=> s.classList.toggle('current', i === cur));
 }
+pinMode.addEventListener('change', ()=>{ howImgs.forEach(i => { i.style.transform = ''; }); updateRail(); });
 addEventListener('scroll', updateRail, {passive:true});
 addEventListener('resize', updateRail);
 updateRail();
+
+/* ---- hero: word-stagger split (re-runs per language; CJK splits per character) ---- */
+function splitHeroWords(){
+  const h = document.querySelector('.hero h1');
+  if(!h || h.querySelector('.w')) return;
+  let i = 0;
+  const wrap = node => {
+    const text = node.textContent;
+    const tokens = /[一-鿿]/.test(text) ? Array.from(text) : text.split(/(\s+)/);
+    const frag = document.createDocumentFragment();
+    tokens.forEach(t => {
+      if(!t) return;
+      if(/^\s+$/.test(t)){ frag.appendChild(document.createTextNode(t)); return; }
+      const s = document.createElement('span');
+      s.className = 'w'; s.style.setProperty('--wi', i++); s.textContent = t;
+      frag.appendChild(s);
+    });
+    node.parentNode.replaceChild(frag, node);
+  };
+  [...h.childNodes].forEach(n => {
+    if(n.nodeType === 3) wrap(n);
+    else if(n.nodeType === 1) [...n.childNodes].forEach(c => { if(c.nodeType === 3) wrap(c); });
+  });
+}
+
+/* ---- hero: gentle collage parallax (desktop + motion-safe only) ---- */
+const collageEl = document.querySelector('.collage');
+const paraWide = matchMedia('(min-width:921px)');
+const motionOK = matchMedia('(prefers-reduced-motion: no-preference)');
+function heroParallax(){
+  if(!collageEl) return;
+  if(!paraWide.matches || !motionOK.matches){ collageEl.style.transform = ''; return; }
+  collageEl.style.transform = 'translateY(' + (Math.min(140, scrollY) * 0.12) + 'px)';
+}
+addEventListener('scroll', heroParallax, {passive:true});
+
+/* ---- scroll-linked: progress bar + route divider dashes ---- */
+const scrollBar = document.getElementById('scrollBar');
+const routePaths = [...document.querySelectorAll('.route-div path')];
+function scrollFX(){
+  const max = document.documentElement.scrollHeight - innerHeight;
+  if (scrollBar) scrollBar.style.width = (max > 0 ? (scrollY / max) * 100 : 0) + '%';
+  if (motionOK.matches) routePaths.forEach(p => { p.style.strokeDashoffset = -(scrollY * 0.3) % 32; });
+}
+addEventListener('scroll', scrollFX, {passive:true});
+scrollFX();
+
+/* ---- section markers + rule draw-in ---- */
+const secIO = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting){ e.target.classList.add('seen'); secIO.unobserve(e.target); }
+}), {threshold:.12});
+document.querySelectorAll('section[data-num]').forEach(s => secIO.observe(s));
+
+/* ---- magnetic primary CTAs (motion-safe) ---- */
+document.querySelectorAll('.hero-cta .btn').forEach(b => {
+  b.addEventListener('mousemove', e => {
+    if (!motionOK.matches) return;
+    const r = b.getBoundingClientRect();
+    b.style.transform = 'translate(' + ((e.clientX - r.left - r.width/2) * .12) + 'px,' + ((e.clientY - r.top - r.height/2) * .25) + 'px)';
+  });
+  b.addEventListener('mouseleave', () => { b.style.transform = ''; });
+});
+
+/* ---- trust stats count-up (numbers only; suffix <em> untouched) ---- */
+function countUp(numEl){
+  const txt = numEl.firstChild;
+  const target = parseInt(txt.textContent, 10);
+  if (isNaN(target)) return;
+  const t0 = performance.now(), dur = 900;
+  (function step(){
+    const p = Math.min(1, (performance.now() - t0) / dur);
+    txt.textContent = Math.round(target * p * (2 - p));
+    if (p < 1) requestAnimationFrame(step);
+  })();
+}
+const statWrap = document.querySelector('.trust-stats');
+if (statWrap){
+  const statIO = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    statIO.disconnect();
+    if (motionOK.matches) statWrap.querySelectorAll('.stat .n').forEach(countUp);
+  }), {threshold:.4});
+  statIO.observe(statWrap);
+}
 
 /* ---- category cards / sample button: prefill the form's product select ---- */
 const productSelect = document.getElementById('product');
@@ -997,10 +1407,12 @@ leadForm.addEventListener('submit', async (e)=>{
   const btn = document.getElementById('leadSubmit');
   btn.disabled = true; btn.textContent = MSG[LANG].vSending;
   try{
+    const phone = leadForm.phone.value.trim();
     const res = await insertLead({
       name, company: leadForm.company.value.trim(), email,
       product, quantity: leadForm.quantity.value.trim(),
-      timeline: leadForm.timeline.value, message: leadForm.message.value.trim()
+      timeline: leadForm.timeline.value,
+      message: [leadForm.message.value.trim(), phone ? 'Phone: ' + phone : ''].filter(Boolean).join(' | ')
     });
     if(res.demo){
       formMsg.textContent = MSG[LANG].vPreview;
@@ -1028,7 +1440,8 @@ document.getElementById('chatClose').addEventListener('click', ()=> setChat(fals
 /* Escape closes the popup first, then the chat */
 document.addEventListener('keydown', (e)=>{
   if(e.key !== 'Escape') return;
-  if(popOverlay.classList.contains('open')) popOverlay.classList.remove('open');
+  if(catOverlay.classList.contains('open')) closeCat();
+  else if(popOverlay.classList.contains('open')) popOverlay.classList.remove('open');
   else if(chatPanel.classList.contains('open')) setChat(false);
 });
 /* chat answers live in MSG (see i18n block below) */
@@ -1068,6 +1481,59 @@ popForm.addEventListener('submit', async (e)=>{
   setTimeout(()=> popOverlay.classList.remove('open'), 1600);
 });
 
+/* ---- category quick-quote popup ---- */
+const catOverlay = document.getElementById('catOverlay');
+const catMsg = document.getElementById('catMsg');
+let catLastFocus = null;
+function openCat(product){
+  catLastFocus = document.activeElement;
+  const sel = document.getElementById('catProduct');
+  sel.value = (product && [...sel.options].some(o => o.value === product)) ? product : 'Other';
+  catMsg.className = 'pop-msg'; catMsg.textContent = '';
+  catOverlay.classList.add('open');
+  document.getElementById('catName').focus();
+}
+function closeCat(){
+  catOverlay.classList.remove('open');
+  if(catLastFocus && catLastFocus.focus) catLastFocus.focus();
+}
+document.querySelectorAll('#source .cat').forEach(a => {
+  a.addEventListener('click', e => { e.preventDefault(); openCat(a.getAttribute('data-product')); });
+});
+document.getElementById('catClose').addEventListener('click', closeCat);
+catOverlay.addEventListener('click', e => { if(e.target === catOverlay) closeCat(); });
+/* focus trap */
+catOverlay.addEventListener('keydown', e => {
+  if(e.key !== 'Tab') return;
+  const f = [...catOverlay.querySelectorAll('button,input,select')].filter(el => !el.closest('.hp') && !el.disabled);
+  const first = f[0], last = f[f.length - 1];
+  if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+  else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+});
+document.getElementById('catForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const f = e.target;
+  if(f.website.value){ catMsg.textContent = MSG[LANG].catThanks; catMsg.className = 'pop-msg show'; return; }
+  const name = document.getElementById('catName').value.trim();
+  const email = document.getElementById('catEmail').value.trim();
+  const product = document.getElementById('catProduct').value;
+  if(!name || !email){ catMsg.textContent = MSG[LANG].vRequired2; catMsg.className = 'pop-msg show err'; return; }
+  if(!EMAIL_RE.test(email)){ catMsg.textContent = MSG[LANG].vEmail; catMsg.className = 'pop-msg show err'; return; }
+  const btn = document.getElementById('catSubmit');
+  btn.disabled = true; btn.textContent = MSG[LANG].vSending;
+  try{
+    const catPhone = document.getElementById('catPhone').value.trim();
+    const res = await insertLead({ name, company: '', email, product, quantity: '', timeline: '', message: 'Category popup: ' + product + (catPhone ? ' | Phone: ' + catPhone : '') });
+    catMsg.textContent = res.demo ? MSG[LANG].vPreview : MSG[LANG].catThanks;
+    catMsg.className = 'pop-msg show';
+    if(!res.demo){ f.reset(); setTimeout(closeCat, 1600); }
+  }catch(err){
+    catMsg.textContent = MSG[LANG].vError;
+    catMsg.className = 'pop-msg show err';
+  }
+  btn.disabled = false; btn.textContent = MSG[LANG].vSubmit;
+});
+
 /* ============================================================
    i18n — EN / 简体中文
    EN strings are captured from the DOM at load; ZH lives below.
@@ -1085,6 +1551,8 @@ const MSG = {
     vPreview: 'Preview mode: add your Supabase keys and this will save + email you. (No data was sent.)',
     vError: 'Something went wrong — please try again, or message us on WhatsApp.',
     vEmail: 'Please enter a valid email address.',
+    vRequired2: 'Please add your name and email.',
+    catThanks: "Thanks — we'll reply within one business day.",
     popThanks: "Thanks — you're on the list. We'll be in touch.",
     chatHuman: '  Want a human? Tap “Chat on WhatsApp”.',
     answers: {
@@ -1104,6 +1572,8 @@ const MSG = {
     vPreview: '预览模式：填入 Supabase 密钥后即可保存并发送邮件通知。（未发送任何数据。）',
     vError: '出了点问题——请重试，或通过 WhatsApp 联系我们。',
     vEmail: '请输入有效的邮箱地址。',
+    vRequired2: '请填写姓名和邮箱。',
+    catThanks: '谢谢——我们将在一个工作日内回复您。',
     popThanks: '谢谢——您已加入名单，我们会尽快联系您。',
     chatHuman: '　想找人工？点击“WhatsApp 沟通”。',
     answers: {
@@ -1125,44 +1595,47 @@ const ZH = {
   /* ---- hero ---- */
   '.hero .seal': '◆ 依托认证工厂网络',
   '.hero h1': '从中国采购，<span class="hl">安心无忧。</span>',
-  '.hero .sub': '在您与合适工厂之间，只需一个澳大利亚合作伙伴。我们负责选品、打样、质检并送货上门——每一步都由您确认。',
+  '.hero .sub': '在您与合适工厂之间，只需一个澳大利亚团队。我们找厂、打样、在中国验货、送货上门——没有您的确认，一切不会推进。',
   '.hero-cta .btn-primary span': '获取报价',
   '.hero-cta .btn-gold': '申请样品',
-  '.hero-note': '<span class="dot"></span> 无义务咨询 · 一个工作日内回复',
+  '.hero-note': '<span class="dot"></span> 无义务咨询 · 一个工作日内专人回复',
   '.collage .chipf.f1': '<span class="tk">✓</span> 中国境内质检',
   '.collage .chipf.f2': '<span class="tk">✓</span> 送货上门',
   '.route-band text||0': '工厂 · 中国',
   '.route-band text||1': '已质检 · 已发运 · 已清关',
   '.route-band text||2': '您的门口 · 澳大利亚',
   /* ---- trust bar ---- */
-  '.trust .eyebrow': '已认证 · 严质检 · 可验证',
-  '.brandline': '我们的合作工厂长期为<b>全球领先零售品牌</b>生产——在给您报价之前，品质门槛早已立好。',
+  '.trust .eyebrow': '工厂网络的资质',
+  '.trust .tstat': '三十年制造积淀。认证经得起查验。',
+  '.trust .tlabel': '合作工厂网络持有',
+  '.trust .tbrands': '信任我们的，是为全球品牌供货的工厂。',
+  '.brandline': '与我们合作的工厂，本就为<b>全球一些最大的零售品牌</b>生产产品。在为您报价之前，这就是既定的品质门槛。',
   '.trust-stats .stat .l||0': '年制造积淀，支撑整个网络',
   '.trust-stats .stat .l||1': '项国际认证',
   '.trust-stats .stat .l||2': '订单发货前全数验货',
-  '.trust-stats .stat .l||3': '个对接人，从头到尾',
+  '.trust-stats .stat .l||3': '位联系人，从头到尾',
   /* ---- problem ---- */
   '#problem .eyebrow': '采购为何容易踩坑',
   '#problem h2': '中国是金矿，也是雷区。',
-  '#problem .head p': '价格与品类无可匹敌。风险在于：该信任谁——到货的究竟是什么？',
-  '.problem-grid .risk h3||0': '谁是真工厂？',
-  '.problem-grid .risk p||0': '市场上充斥着冒充工厂的贸易商——很难分辨真正的制造商与层层加价的中间商。',
+  '#problem .head p': '价格与品类无可匹敌。难的是知道该信任谁——以及实际到货的会是什么。',
+  '.problem-grid .risk h3||0': '谁才是真正的工厂？',
+  '.problem-grid .risk p||0': '采购平台上到处是冒充工厂的贸易商——而远在澳大利亚，几乎无从分辨。',
   '.problem-grid .risk h3||1': '质量像抽奖',
-  '.problem-grid .risk p||1': '样品完美，大货却不然。发货前不验货，等发现时已太迟。',
+  '.problem-grid .risk p||1': '样品完美无缺。可整柜到港后，第40箱就不对了。发货前不验货，等发现问题时，货已经是您的了。',
   '.problem-grid .risk h3||2': '沟通失真',
-  '.problem-grid .risk p||2': '规格、工期与期望在语言与时差之间走样——小误差变成大成本。',
+  '.problem-grid .risk p||2': '深夜11点“确认”的规格，到了生产环节往往会走样。小小的误解，变成一箱箱昂贵的损失。',
   '.problem-grid .risk h3||3': '起订量与物流',
-  '.problem-grid .risk p||3': '高起订量、运费、清关与GST，让一张简单订单变成多数买家独自摸索的迷宫。',
-  '#problem .kicker': '其实可以更简单：<b>一个本地伙伴，全程搞定。</b>',
+  '.problem-grid .risk p||3': '起订量、运费、清关、GST——做过五十次就不难。但多数买家是第一次做，还是独自一人。',
+  '#problem .kicker': '或者：<b>找一个已经做过五十次的本地伙伴。</b>',
   /* ---- about / story ---- */
   '#about .eyebrow': '关于我们',
   '#about h2': '不是拿着联系人名单的中介，而是真正的工厂网络。',
   '.story-points .spoint h3||0': '生于工厂车间',
-  '.story-points .spoint p||0': '我们的供应来自一个拥有约三十年生产积淀的成熟制造网络——是真实的工厂，不是黄页目录。',
+  '.story-points .spoint p||0': 'Souklane 不是从一个网站起家的。我们背后是一个约有三十年生产历史的制造网络——真实的车间、真实的机器，而不是一份名录。',
   '.story-points .spoint h3||1': '认证与审核齐备',
-  '.story-points .spoint p||1': '合作工厂持有BSCI、ISO、GRS、ICS等认证——道德与标准有据可查，无需空口承诺。',
+  '.story-points .spoint p||1': '合作工厂持有BSCI、ISO、GRS、ICS认证。证书文件您尽管索要——我们反而希望您查验。',
   '.story-points .spoint h3||2': '澳大利亚运营，中国落地',
-  '.story-points .spoint p||2': '您对接的是同时区的本地团队——背后有驻厂人员在中国一线，说当地语言。',
+  '.story-points .spoint p||2': '您对接的是按澳大利亚时间工作的本地团队。我们身后，有人站在中国的工厂车间里，说着当地语言，盯着您的订单。',
   '.story-vis .badge .n': '约30年',
   '.story-vis .badge .t': '制造积淀，支撑我们的网络',
   '.vs .hdr||0': '选择 Souklane',
@@ -1178,13 +1651,13 @@ const ZH = {
   /* ---- how it works ---- */
   '#how .eyebrow': '合作流程',
   '#how h2': '五个步骤，每一步由您确认。',
-  '#how .head p': '您不会被蒙在鼓里，也不会被绑定——没有您的确认，一切不会推进。',
+  '#how .head p': '上一步没有您的签字确认，下一步就不会开始。',
   '#how [data-step] .card h3||0': '<span class="stg">第1步</span>告诉我们您的需求',
   '#how [data-step] .card p||0': '发来照片、样品或一个大致想法，加上目标价格与数量，就足够开始了。',
   '#how [data-step] .card h3||1': '<span class="stg">第2步</span>我们匹配合适的工厂',
-  '#how [data-step] .card p||1': '我们从网络中挑选真正适合您产品的认证工厂——而不是离得最近的那家。',
+  '#how [data-step] .card p||1': '我们从网络中挑选真正做您这类产品的认证工厂——而不是最先回复的那家。',
   '#how [data-step] .card h3||2': '<span class="stg">第3步</span>打样，您来确认',
-  '#how [data-step] .card p||2': '下单前先拿到实物。支持完整OEM/ODM——颜色、尺寸、Logo、面料、包装。<span class="badge">没有您的同意，绝不推进</span>',
+  '#how [data-step] .card p||2': '在任何一件产品投产之前，您先拿到实物样品。支持完整OEM/ODM——您的颜色、尺寸、Logo、面料、包装。<span class="badge">没有您的同意，绝不推进</span>',
   '#how [data-step] .card h3||3': '<span class="stg">第4步</span>生产与质检',
   '#how [data-step] .card p||3': '我们全程跟进生产，并在中国发货前验货——问题在当地解决，而不是在您的仓库。',
   '#how [data-step] .card h3||4': '<span class="stg">第5步</span>运输、清关、送达',
@@ -1203,7 +1676,7 @@ const ZH = {
   '.why-grid .why-card h3||4': '按需定制',
   '.why-grid .why-card p||4': '把想法变成产品，或改造现有产品——材料、品牌、包装，按您的方式来。',
   '.why-grid .why-card h3||5': '澳大利亚团队',
-  '.why-grid .why-card p||5': '同时区的本地对接人，懂澳洲市场的期待——背后是中国工厂的真实资源。',
+  '.why-grid .why-card p||5': '一个在您的时间接电话的本地人——并且懂澳大利亚零售市场的要求。',
   /* ---- what we source ---- */
   '#source .eyebrow': '采购品类',
   '#source h2': '从软性商品起步，快速扩张。',
@@ -1221,7 +1694,7 @@ const ZH = {
   '.cats .cat .tx h3||5': '手套',
   '.cats .cat .tx p||5': '时尚、运动与工装手套',
   '.cat.more h3': '没找到您的产品？',
-  '.cat.more p': '眼镜、鞋履、配饰等——我们的网络远不止这一页。告诉我们您的需求，我们会快速比对工厂资源。',
+  '.cat.more p': '眼镜、鞋履、配饰等——我们的网络远不止这一页。告诉我们您的需求，我们很快给您一个明确的行或不行。',
   '.fauxbtn span': '咨询一下',
   '.oem span||0': '完整 OEM / ODM',
   '.oem span||1': '您的Logo与品牌',
@@ -1246,8 +1719,8 @@ const ZH = {
   '.help-foot': '不确定是否匹配？<a href="#quote">尽管问我们</a>——如果我们的网络能做，我们直说。',
   /* ---- proof ---- */
   '#proof .eyebrow': '实力见证',
-  '#proof h2': '品质，早已经受大规模考验。',
-  '#proof .head p': '我们的合作工厂为多家全球知名零售品牌代工生产。试点客户的真实反馈即将呈现。',
+  '#proof h2': '工厂久经考验。品牌全新起步。实话实说。',
+  '#proof .head p': '我们的合作工厂为多家全球知名零售品牌生产产品。Souklane 本身是新品牌——试点客户的故事将在这里呈现，等它们真实发生之后。',
   '.quotes .ph-tag||0': '试点客户评价——待补充',
   '.quotes .ph-tag||1': '试点客户评价——待补充',
   '.quotes .ph-tag||2': '试点客户评价——待补充',
@@ -1261,23 +1734,25 @@ const ZH = {
   '#faq .eyebrow': '常见问题',
   '#faq h2': '直截了当的回答。',
   '#faq .faq-item summary||0': '起订量是多少？<span class="plus">+</span>',
-  '#faq .faq-item .a||0': '起订量因产品和工厂而异。依托工厂网络，我们常能为您匹配到比直接下单更低的起订量。告诉我们您的数量，我们会如实告知可行性。',
+  '#faq .faq-item .a||0': '因产品和工厂而异。依托工厂网络，我们常能找到比您直接下单起订量更低的工厂。告诉我们您的数量，我们会如实告知可行性——哪怕答案是“还不行”。',
   '#faq .faq-item summary||1': '价格如何构成——为什么不直接找工厂？<span class="plus">+</span>',
-  '#faq .faq-item .a||1': '您拿到的是一个透明到岸价，涵盖采购、质检、运费与清关——没有意外费用。“直接找工厂”意味着供应商审核、质检、运输、清关都得自己来，出了错也要自己买单。这些我们全部承担，并有真实的工厂关系支撑——您更接近真实工厂成本，却不必承担风险。',
+  '#faq .faq-item .a||1': '一个透明到岸价，涵盖采购、质检、运费与清关——没有意外费用。您当然可以直接找工厂，只是审厂、质检、运输、报关都得自己来，出了岔子也得自己买单。这些我们全部承担，依托真实的工厂关系——您更接近真实工厂成本，却不必承担风险。',
   '#faq .faq-item summary||2': '一般交期多久？<span class="plus">+</span>',
-  '#faq .faq-item .a||2': '大致参考：打样约1–2周，生产约3–5周，另加运输时间。具体因产品和数量而异——下单前我们会给出真实日期。',
+  '#faq .faq-item .a||2': '大致参考：打样1–2周，生产3–5周，另加运输时间。我们在您下单之前给出真实日期——而不是之后。',
   '#faq .faq-item summary||3': '你们如何把控质量？<span class="plus">+</span>',
   '#faq .faq-item .a||3': '您先确认实物样品。之后我们全程跟进生产，并在中国发货前验货——缺陷在到达澳大利亚之前就被拦下。',
   '#faq .faq-item summary||4': '可以定制产品或申请样品吗？<span class="plus">+</span>',
-  '#faq .faq-item .a||4': '可以。我们提供完整OEM/ODM——您的颜色、尺寸、Logo、面料与包装——并在批量订单开始前提供样品供您签样确认。',
+  '#faq .faq-item .a||4': '可以。完整OEM/ODM——您的颜色、尺寸、Logo、面料与包装——并且在批量订单开始前，由您签样确认实物样品。',
   '#faq .faq-item summary||5': '运输、清关和GST怎么处理？<span class="plus">+</span>',
-  '#faq .faq-item .a||5': '我们安排运输与清关，并送货上门。进口需缴纳澳大利亚GST；许多商品可依据中澳自贸协定（ChAFTA）享受零关税——具体适用情况我们会为您逐一说明。',
-  '#faq .faq-item summary||6': '安全吗？付款如何安排？<span class="plus">+</span>',
-  '#faq .faq-item .a||6': '您对接的是一位可问责的澳大利亚联系人，而非匿名海外卖家。开始之前，我们会以书面形式明确清晰的分阶段付款条款。',
+  '#faq .faq-item .a||5': '我们安排运输与清关，送货上门。进口需缴纳GST；不少商品可依据中澳自贸协定（ChAFTA）免关税——具体如何适用于您的订单，我们会为您讲清楚。',
+  '#faq .faq-item summary||6': '货物随附哪些单证？<span class="plus">+</span>',
+  '#faq .faq-item .a||6': '完整一套：商业发票、装箱单，以及在货物符合条件时的中澳自贸协定（ChAFTA）原产地证书——确保零关税税率在清关时真正生效。所有文件您都会收到副本。',
+  '#faq .faq-item summary||7': '安全吗？付款如何安排？<span class="plus">+</span>',
+  '#faq .faq-item .a||7': '您对接的是一位可问责的澳大利亚联系人，而不是发完货就消失的卖家。付款分阶段进行，开始之前以书面形式确定。',
   /* ---- lead form ---- */
   '.lead .eyebrow': '获取报价',
   '.lead h2': '告诉我们您的需求。',
-  '.lead .sub': '发来基本信息，我们将回复一份清晰、无义务的报价——一个价格，质检到位，送货上门。',
+  '.lead .sub': '发来基本信息，我们会回复一份清晰、无义务的报价。一个价格：采购、质检、送达，全部在内。',
   '.assur li||0': '一个工作日内回复',
   '.assur li||1': '无义务、无压力',
   '.assur li||2': '下单前先看样',
@@ -1287,6 +1762,7 @@ const ZH = {
   'label[for="name"]': '姓名',
   'label[for="company"]': '公司 <span class="opt">（选填）</span>',
   'label[for="email"]': '邮箱',
+  'label[for="phone"]': '电话 <span class="opt">（选填）</span>',
   'label[for="product"]': '意向产品',
   'label[for="quantity"]': '大致数量 <span class="opt">（选填）</span>',
   'label[for="timeline"]': '时间安排 <span class="opt">（选填）</span>',
@@ -1306,10 +1782,11 @@ const ZH = {
   '#timeline option||2': '1–3个月',
   '#timeline option||3': '3–6个月',
   '#timeline option||4': '仅在了解',
+  '.form-trust': '<span>✓ 一个工作日内回复</span><span>✓ 无义务</span><span>✓ 先看样品</span>',
   '#leadSubmit': '获取我的报价',
   '.privacy': '您的信息仅用于回复本次咨询。绝无垃圾邮件。',
   '#formSuccess .big': '收到——我们马上处理。',
-  '#formSuccess .muted': '您的咨询已记录，我们将在一个工作日内与您联系。',
+  '#formSuccess .muted': '您的咨询已收到。一个工作日内会有专人回复。',
   /* ---- footer ---- */
   '.fbrand p': '您在澳大利亚的采购合作伙伴，背后是中国认证工厂网络。',
   'footer.site h4||0': '了解更多',
@@ -1326,7 +1803,7 @@ const ZH = {
   'footer.site .contact-item span': '立足澳大利亚 · 对接中国',
   '.foot-note': '各项认证（BSCI、ISO、GRS、ICS、SGS、FSC、Higg Index）由我们的合作工厂持有。品牌相关表述仅说明工厂的代工履历，并非对 Souklane 的背书。作为进口商，您须自行负责澳大利亚产品安全与标签合规要求（如玩具类 AS/NZS ISO 8124）；并可能产生 GST 与关税。以上内容仅为一般信息，不构成法律、税务或海关建议——具体事宜请咨询专业人士。© <span id="year"></span> Souklane 版权所有。',
   /* ---- chat ---- */
-  '.chat-head b': '你好 👋 需要什么帮助？',
+  '.chat-head b': '你好，需要什么帮助？',
   '.chat-head p': '快速解答，或转人工沟通。',
   '#chatBody .bubble||0': '点击下方问题快速了解，或直接跳转 WhatsApp、获取报价。',
   '#chatOpts .chip||0': '起订量？',
@@ -1335,10 +1812,27 @@ const ZH = {
   '#chatOpts .chip||3': '物流运输？',
   '#chatOpts .chip||4': 'WhatsApp 沟通',
   '#chatOpts .chip||5': '获取报价',
-  /* ---- popup ---- */
-  '.pop .eyebrow': '离开之前',
-  '.pop h3': '先找对工厂，再谈生意。',
-  '.pop > p': '加入早期体验名单，我们会依托认证工厂网络，帮您把采购这件事做对。',
+  /* ---- category quick-quote popup ---- */
+  '#catOverlay .eyebrow': '快速报价',
+  '#catOverlay h3': '告诉我们您想要什么。',
+  '#catOverlay .pop > p': '一个工作日内，我们会带着真实报价回来。',
+  'label[for="catName"]': '姓名',
+  'label[for="catEmail"]': '邮箱',
+  'label[for="catPhone"]': '电话 <span class="opt">（选填）</span>',
+  'label[for="catProduct"]': '产品',
+  '#catProduct option||0': '包袋',
+  '#catProduct option||1': '电脑包',
+  '#catProduct option||2': '帽类',
+  '#catProduct option||3': '毛绒',
+  '#catProduct option||4': '手套',
+  '#catProduct option||5': '眼镜',
+  '#catProduct option||6': '鞋履',
+  '#catProduct option||7': '其他',
+  '#catSubmit': '获取我的报价',
+  /* ---- exit popup ---- */
+  '#popOverlay .eyebrow': '离开之前',
+  '#popOverlay h3': '先找对工厂，再谈生意。',
+  '#popOverlay .pop > p': '加入早期体验名单，我们会依托认证工厂网络，帮您把采购这件事做对。',
   '#popProduct option||0': '意向产品…',
   '#popProduct option||1': '包袋',
   '#popProduct option||2': '电脑包',
@@ -1359,6 +1853,8 @@ const ZH_ATTR = [
   ['#chatToggle', 'aria-label', '打开聊天'],
   ['.fab.wa', 'aria-label', '通过 WhatsApp 聊天'],
   ['#popClose', 'aria-label', '关闭'],
+  ['#catClose', 'aria-label', '关闭'],
+  ['#catOverlay', 'aria-label', '快速报价申请'],
   ['#chatClose', 'aria-label', '关闭聊天'],
   ['#popOverlay', 'aria-label', '加入早期体验名单'],
   ['#chatPanel', 'aria-label', '与 Souklane 聊天'],
@@ -1388,6 +1884,7 @@ function applyLang(l){
   const md = document.querySelector('meta[name="description"]');
   if (md) md.setAttribute('content', MSG[LANG].metaDesc);
   const y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
+  splitHeroWords();
   /* rebuild WhatsApp links (some are recreated by the innerHTML swap) */
   waHref = 'https://wa.me/' + encodeURIComponent(WHATSAPP_NUMBER) + '?text=' + encodeURIComponent(MSG[LANG].waGreeting);
   document.querySelectorAll('[data-walink]').forEach(a => { a.href = waHref; a.target = '_blank'; a.rel = 'noopener'; });
