@@ -576,6 +576,10 @@ html{interpolate-size:allow-keywords}
   .story-vis img{animation:float 12s ease-in-out 1s infinite}
 }
 
+/* lead form: focus micro-moment (the one addition from the G audit) */
+.form-card{transition:box-shadow .25s}
+.form-card:focus-within{box-shadow:0 24px 60px rgba(0,0,0,.28),0 0 0 3px var(--emerald)}
+
 /* footer polish */
 footer.site{padding:72px 0 40px}
 footer.site .cols{grid-template-columns:1.5fr .9fr .9fr 1.2fr;gap:48px;margin-bottom:44px}
