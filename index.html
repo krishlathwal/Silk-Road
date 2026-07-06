@@ -157,6 +157,12 @@ header.site.scrolled{border-color:var(--line);box-shadow:0 4px 20px rgba(23,35,3
 .nav-links a{font-size:14px;font-weight:500;text-decoration:none;color:var(--ink-soft)}
 .nav-links a:hover{color:var(--emerald)}
 @media (max-width:900px){.nav-links a:not(.nav-cta){display:none}}
+@media (max-width:480px){
+  .brand .word{font-size:19px}
+  .nav-links{gap:10px}
+  .nav-links .nav-cta{padding:9px 14px!important;font-size:13.5px;white-space:nowrap}
+  .lang-toggle{padding:6px 10px;white-space:nowrap}
+}
 
 /* ---------- hero ---------- */
 .hero{padding:64px 0 0;position:relative}
@@ -542,7 +548,7 @@ section[data-num="02"]::before,section[data-num="04"]::before,section[data-num="
 }
 @media (min-width:921px){
   .hero-grid{position:relative;z-index:1}
-  .route-band{margin-top:-64px;position:relative;z-index:0;pointer-events:none}
+  .route-band{margin-top:-6px;position:relative;z-index:0;pointer-events:none}
 }
 
 /* scroll-linked + micro-interactions (Task 4) */
@@ -657,7 +663,7 @@ body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;bac
           <circle r="17" fill="var(--gold-tint)" stroke="var(--gold)"/>
           <g transform="translate(-8,-8)"><path d="M2 8l6-5 6 5v6H2V8z" fill="none" stroke="var(--gold-deep)" stroke-width="1.6" stroke-linejoin="round"/></g>
         </g>
-        <text x="950" y="124" font-family="Inter" font-size="13" font-weight="600" fill="#9A7B3F" text-anchor="middle">Your door · Australia</text>
+        <text x="918" y="124" font-family="Inter" font-size="13" font-weight="600" fill="#9A7B3F" text-anchor="middle">Your door · Australia</text>
       </svg>
     </div>
   </div>
