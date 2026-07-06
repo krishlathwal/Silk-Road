@@ -576,6 +576,17 @@ html{interpolate-size:allow-keywords}
   .story-vis img{animation:float 12s ease-in-out 1s infinite}
 }
 
+/* footer polish */
+footer.site{padding:72px 0 40px}
+footer.site .cols{grid-template-columns:1.5fr .9fr .9fr 1.2fr;gap:48px;margin-bottom:44px}
+footer.site .fbrand a.brand{display:inline-flex;padding:0}
+footer.site h4{color:#E9F3EE}
+footer.site h4::before{content:"";display:inline-block;width:14px;height:2px;background:var(--gold);margin-right:8px;vertical-align:4px}
+.socials{align-items:center}
+.socials .lang-toggle{margin:0 0 0 8px;height:38px;display:inline-flex;align-items:center}
+.foot-note{color:#93A89E;font-size:12.5px;line-height:1.75;padding-top:26px}
+@media (max-width:860px){footer.site .cols{gap:36px}}
+
 /* paper grain */
 body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.055 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:160px 160px}
 
@@ -975,12 +986,12 @@ body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;bac
           <span class="word">Souklane</span>
         </a>
         <p>Your Australian partner for sourcing from a certified factory network in China.</p>
-        <button class="lang-toggle" type="button" aria-label="切换到中文">中文</button>
         <!-- PLACEHOLDER: point these at your real social profiles when created -->
         <div class="socials">
           <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zm7.5 0h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-8.5c0-2-.04-4.65-2.83-4.65-2.84 0-3.27 2.2-3.27 4.5V24H8V8z"/></svg></a>
           <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1.4" fill="currentColor" stroke="none"/></svg></a>
           <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.7c0-.9.3-1.6 1.7-1.6h1.6V4.2c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.4-4 4.1v2.6H7.7V14h2.7v8h3.1z"/></svg></a>
+          <button class="lang-toggle" type="button" aria-label="切换到中文">中文</button>
         </div>
       </div>
       <div>
