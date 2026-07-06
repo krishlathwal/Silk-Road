@@ -374,7 +374,6 @@ header.site.scrolled{border-color:var(--line);box-shadow:0 4px 20px rgba(23,35,3
 
 /* ---------- lead form ---------- */
 .lead{background:var(--ink);color:#EAF1EC;position:relative;overflow:hidden}
-.lead::before{content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(61,217,172,.14),transparent 70%)}
 .lead .grid{display:grid;grid-template-columns:1fr 1.1fr;gap:52px;align-items:start;position:relative}
 @media (max-width:860px){.lead .grid{grid-template-columns:1fr;gap:34px}}
 .lead h2{color:#fff;font-size:clamp(27px,4vw,42px);font-weight:800}
@@ -543,7 +542,6 @@ section[data-num="02"]::before,section[data-num="04"]::before,section[data-num="
 .why-card:hover{transform:none;box-shadow:none;border-color:var(--gold)}
 .cat:hover{transform:none}
 .help-card:hover{box-shadow:none}
-.lead::before{content:none}
 
 /* dashed route divider between sections */
 .route-div{max-width:var(--maxw);margin:0 auto;padding:26px 24px 0}
@@ -615,6 +613,15 @@ html{interpolate-size:allow-keywords}
 /* lead form: focus micro-moment (the one addition from the G audit) */
 .form-card{transition:box-shadow .25s}
 .form-card:focus-within{box-shadow:0 24px 60px rgba(0,0,0,.28),0 0 0 3px var(--emerald)}
+
+/* lead section: hierarchy + trust cues (Task H) */
+.lead::before{content:"";position:absolute;left:-8%;bottom:-40px;width:56%;height:220px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 200'%3E%3Cpath d='M20 170 C 180 40, 420 40, 580 150' fill='none' stroke='%23C9A96A' stroke-width='2' stroke-dasharray='5 10' stroke-linecap='round'/%3E%3C/svg%3E");background-size:contain;background-repeat:no-repeat;opacity:.22;pointer-events:none}
+.form-card .fhead{font-size:22px;position:relative;padding-bottom:14px;margin-bottom:20px}
+.form-card .fhead::after{content:"";position:absolute;left:0;bottom:0;width:52px;height:2px;background:var(--gold)}
+.form-trust{display:flex;flex-wrap:wrap;gap:6px 16px;margin:2px 0 12px;font-size:12.5px;font-weight:600;color:var(--emerald-deep)}
+.form-trust span{white-space:nowrap}
+.input:hover,select:hover,textarea:hover{border-color:#D8CFBB}
+#leadSubmit{padding:16px 27px;font-size:16px}
 
 /* footer polish */
 footer.site{padding:72px 0 40px}
@@ -1025,6 +1032,7 @@ body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;bac
             </div>
           </div>
           <div class="field"><label for="message">Anything else? <span class="opt">(optional)</span></label><textarea id="message" name="message" placeholder="Tell us about the product, colours, branding…"></textarea></div>
+          <p class="form-trust"><span>✓ 1 business day reply</span><span>✓ No obligation</span><span>✓ Samples first</span></p>
           <button class="btn btn-primary" type="submit" id="leadSubmit" style="width:100%;justify-content:center">Get my quote</button>
           <p class="privacy">We'll only use your details to respond to your enquiry. No spam, ever.</p>
           <div class="form-msg" id="formMsg"></div>
@@ -1710,6 +1718,7 @@ const ZH = {
   '#timeline option||2': '1–3个月',
   '#timeline option||3': '3–6个月',
   '#timeline option||4': '仅在了解',
+  '.form-trust': '<span>✓ 一个工作日内回复</span><span>✓ 无义务</span><span>✓ 先看样品</span>',
   '#leadSubmit': '获取我的报价',
   '.privacy': '您的信息仅用于回复本次咨询。绝无垃圾邮件。',
   '#formSuccess .big': '收到——我们马上处理。',
