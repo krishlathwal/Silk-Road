@@ -474,8 +474,8 @@ section[data-num]::before{content:attr(data-num);position:absolute;top:30px;righ
 section[data-num="02"]::before,section[data-num="04"]::before,section[data-num="06"]::before,section[data-num="08"]::before{right:auto;left:max(18px,3.5vw)}
 @media (max-width:767px){section[data-num]::before{display:none}}
 #problem{padding:112px 0 96px}
-#about{padding:120px 0 0}
-.how{padding:96px 0 128px;padding-top:230px}
+#about{padding:120px 0}
+.how{padding:120px 0 128px}
 #why{padding:88px 0}
 #source{padding:118px 0 96px}
 #help{padding-top:1px}
@@ -483,17 +483,16 @@ section[data-num="02"]::before,section[data-num="04"]::before,section[data-num="
 #faq{padding:118px 0}
 @media (max-width:640px){
   #problem{padding:72px 0 64px}
-  #about{padding:72px 0 0}
-  .how{padding-top:150px;padding-bottom:80px}
+  #about{padding:72px 0}
+  .how{padding-top:80px;padding-bottom:80px}
   #why{padding:64px 0}
   #source{padding:76px 0 64px}
   #proof{padding:56px 0}
   #faq{padding:76px 0}
 }
 
-/* overlap moments */
-.vs{margin-bottom:-140px;position:relative;z-index:2;box-shadow:var(--shadow);border-radius:14px}
-@media (max-width:640px){.vs{margin-bottom:-90px}}
+/* overlap moment (banner only — vs table sits inside its own section) */
+.vs{box-shadow:var(--shadow);border-radius:14px}
 .help-banner{width:100vw;max-width:100vw;margin:-70px calc(50% - 50vw) 56px;height:min(400px,40vw);border-radius:0;border-left:none;border-right:none;position:relative;z-index:2}
 @media (max-width:920px){.help-banner{height:220px;margin-top:-44px;margin-bottom:34px}}
 
