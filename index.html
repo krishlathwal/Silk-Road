@@ -117,7 +117,7 @@ html{scroll-behavior:smooth;scroll-padding-top:84px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 body{font-family:'Inter',system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 h1,h2,h3,.display{font-family:'Bricolage Grotesque','Inter',sans-serif;letter-spacing:-.02em;line-height:1.08}
-img{max-width:100%;display:block}
+img{max-width:100%;height:auto;display:block}
 .wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 24px}
 .eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--emerald)}
 .muted{color:var(--ink-soft)}
@@ -256,7 +256,7 @@ header.site.scrolled{border-color:var(--line);box-shadow:0 4px 20px rgba(23,35,3
 .story-grid{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center}
 @media (max-width:920px){.story-grid{grid-template-columns:1fr;gap:36px}}
 .story-vis{position:relative}
-.story-vis img{border-radius:110px 110px 18px 18px;border:1px solid var(--line);box-shadow:var(--shadow)}
+.story-vis img{border-radius:18px;border:1px solid var(--line);box-shadow:var(--shadow)}
 .story-vis .badge{position:absolute;left:-14px;bottom:26px;background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:14px;box-shadow:var(--shadow);padding:15px 19px;display:flex;gap:12px;align-items:center}
 .story-vis .badge .n{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:24px;color:var(--emerald)}
 .story-vis .badge .t{font-size:12px;color:var(--ink-soft);max-width:16ch;line-height:1.35}
@@ -805,10 +805,10 @@ body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;bac
         </div>
       </div>
       <div class="story-vis reveal d2">
-        <!-- AI factory visual generated for Souklane (ekly) — self-hosted in assets/ -->
+        <!-- AI journey illustration generated for Souklane (ekly) — self-hosted in assets/ -->
         <picture>
-          <source srcset="assets/story-factory.webp" type="image/webp" />
-          <img src="assets/story-factory.jpg" alt="Inside a partner factory: rows of sewing workstations producing quilted bags, backpacks and caps" width="1000" height="1241" loading="lazy" />
+          <source srcset="assets/story-journey.webp" type="image/webp" />
+          <img src="assets/story-journey.jpg" alt="Illustration of the journey from a Chinese factory, by sea freight, to an Australian front door" width="1160" height="778" loading="lazy" />
         </picture>
         <div class="badge"><span class="n">~30yrs</span><span class="t">of manufacturing behind our network</span></div>
       </div>
