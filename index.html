@@ -213,8 +213,17 @@ header.site.scrolled{border-color:var(--line);box-shadow:0 4px 20px rgba(23,35,3
 @media (prefers-reduced-motion:no-preference){
   .route-draw{stroke-dasharray:900;stroke-dashoffset:900;animation:draw 3s ease-out .4s forwards}
   .route-dot{offset-path:path('M70 96 C 330 16, 690 16, 950 84');animation:travel 7s linear 1.2s infinite}
+  .route-draw-v{stroke-dasharray:620;stroke-dashoffset:620;animation:draw 2.6s ease-out .3s forwards}
+  .route-dot-v{offset-path:path('M60 44 C 210 110, 40 300, 262 384');animation:travel 7s linear 1s infinite}
   @keyframes draw{to{stroke-dashoffset:0}}
   @keyframes travel{0%{offset-distance:0%}100%{offset-distance:100%}}
+}
+.route-band .route-v{display:none}
+@media (prefers-reduced-motion:reduce){.route-dot-v{transform:translate(60px,44px)}}
+@media (max-width:640px){
+  .route-band .route-h{display:none}
+  .route-band .route-v{display:block;max-width:340px;margin:0 auto}
+  .route-band{margin-top:34px}
 }
 
 /* ---------- trust bar ---------- */
@@ -465,7 +474,6 @@ footer .contact-item svg{width:16px;height:16px;color:#3DD9AC;flex:none}
 .pop-msg{font-size:13.5px;margin-top:10px;display:none}
 .pop-msg.show{display:block;color:var(--emerald-deep)}
 .pop-msg.show.err{color:#B3261E}
-@media (max-width:640px){.route-band text{display:none}}
 @media (prefers-reduced-motion:reduce){.steps .rail .fill{transition:none}}
 /* ---- language toggle + zh font stack ---- */
 .lang-toggle{background:none;border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-family:inherit;font-size:13px;font-weight:600;color:var(--ink-soft);cursor:pointer;transition:color .2s,border-color .2s}
@@ -726,7 +734,7 @@ body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;bac
 
     <!-- signature: the trade route -->
     <div class="route-band" aria-hidden="true">
-      <svg viewBox="0 0 1020 150" preserveAspectRatio="xMidYMid meet">
+      <svg class="route-h" viewBox="0 0 1020 150" preserveAspectRatio="xMidYMid meet">
         <path class="route-dash route-draw" d="M70 96 C 330 16, 690 16, 950 84" fill="none" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round"/>
         <!-- travelling dot -->
         <circle class="route-dot" r="5" fill="var(--emerald)"/>
@@ -748,6 +756,26 @@ body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;bac
           <g transform="translate(-8,-8)"><path d="M2 8l6-5 6 5v6H2V8z" fill="none" stroke="var(--gold-deep)" stroke-width="1.6" stroke-linejoin="round"/></g>
         </g>
         <text x="918" y="124" font-family="Inter" font-size="13" font-weight="600" fill="#9A7B3F" text-anchor="middle">Your door · Australia</text>
+      </svg>
+      <!-- vertical route for phones: same journey, room to breathe -->
+      <svg class="route-v" viewBox="0 0 340 420" preserveAspectRatio="xMidYMid meet">
+        <path class="route-dash route-draw-v" d="M60 44 C 210 110, 40 300, 262 384" fill="none" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round"/>
+        <circle class="route-dot-v" r="6" fill="var(--emerald)"/>
+        <g transform="translate(60,44)">
+          <circle r="16" fill="var(--emerald-tint)"/>
+          <g transform="translate(-8,-8)"><path d="M1 15V7l4 3V7l4 3V7l6-3v11H1z" fill="none" stroke="var(--emerald)" stroke-width="1.6" stroke-linejoin="round"/></g>
+        </g>
+        <text x="90" y="49" font-family="Inter" font-size="14" fill="#4A5751">Factory · China</text>
+        <g transform="translate(134,207)">
+          <circle r="15" fill="#fff" stroke="var(--line)"/>
+          <g transform="translate(-8,-7)"><path d="M2 10h12l-2 4H4l-2-4zM5 10V6h6v4M8 6V3" fill="none" stroke="var(--gold-deep)" stroke-width="1.5" stroke-linejoin="round"/></g>
+        </g>
+        <text x="164" y="212" font-family="Inter" font-size="13" fill="#9A7B3F">QC'd · shipped · cleared</text>
+        <g transform="translate(262,384)">
+          <circle r="16" fill="var(--gold-tint)" stroke="var(--gold)"/>
+          <g transform="translate(-8,-8)"><path d="M2 8l6-5 6 5v6H2V8z" fill="none" stroke="var(--gold-deep)" stroke-width="1.6" stroke-linejoin="round"/></g>
+        </g>
+        <text x="234" y="389" font-family="Inter" font-size="14" font-weight="600" fill="#9A7B3F" text-anchor="end">Your door · Australia</text>
       </svg>
     </div>
   </div>
@@ -1604,6 +1632,9 @@ const ZH = {
   '.route-band text||0': '工厂 · 中国',
   '.route-band text||1': '已质检 · 已发运 · 已清关',
   '.route-band text||2': '您的门口 · 澳大利亚',
+  '.route-band text||3': '工厂 · 中国',
+  '.route-band text||4': '已质检 · 已发运 · 已清关',
+  '.route-band text||5': '您的门口 · 澳大利亚',
   /* ---- trust bar ---- */
   '.trust .eyebrow': '工厂网络的资质',
   '.trust .tstat': '三十年制造积淀。认证经得起查验。',
